@@ -1,0 +1,17 @@
+<html>
+  <head> 
+  </head>
+
+  <body>
+    {% for wo in work %} 
+        {{wo.user_name}} 
+        {{wo.title}} 
+        {{wo.hours}}
+        {{wo.duration}} 
+        {{wo.description}} 
+        {{wo.required_skills}}
+        {{wo.preferred_skills}}
+        {{wo.tags}} 
+    {% endfor %}
+  </body>
+</html>
