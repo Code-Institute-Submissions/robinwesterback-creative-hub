@@ -1,8 +1,5 @@
-<html>
-  <head> 
-  </head>
-
-  <body>
+{% extends 'base.html' %}
+{% block content %}
     {% for wo in work %} 
         {{wo.user_name}} 
         {{wo.title}} 
@@ -13,5 +10,4 @@
         {{wo.preferred_skills}}
         {{wo.tags}} 
     {% endfor %}
-  </body>
-</html>
+{% endblock %}
