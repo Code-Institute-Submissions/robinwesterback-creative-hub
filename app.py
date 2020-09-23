@@ -16,6 +16,9 @@ mongo = PyMongo(app)
 def get_creatives():
     return render_template("creatives.html", creatives=mongo.db.creatives.find())
 
+@app.route('/create_creative')
+def create_creative():
+    return render_template('createCreative.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
