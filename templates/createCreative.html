@@ -1,6 +1,106 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h3>Create Creative Account</h3>
+<div class="row">
+  <form action="{{ url_for('insert_creative') }}" method="POST" class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_first_name"
+          name="creative_first_name"
+          type="text"
+          class="validate"
+        />
+        <label for="creative_first_name">First Name</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_last_name"
+          name="creative_last_name"
+          type="text"
+          class="validate"
+        />
+        <label for="creative_last_name">Last Name</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_email"
+          name="creative_email"
+          type="email"
+          class="validate"
+        />
+        <label for="creative_email">E-mail</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input
+          id="creative_phone"
+          name="creative_phone"
+          type="tel"
+          class="validate"
+        />
+        <label for="creative_phone">Telephone</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_city"
+          name="creative_city"
+          type="text"
+          class="validate"
+        />
+        <label for="creative_city">City</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_country"
+          name="creative_country"
+          type="text"
+          class="validate"
+        />
+        <label for="creative_country">Country</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_skills"
+          name="creative_skills"
+          type="text"
+          class="validate"
+        />
+        <label for="creative_skills">Skills</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="creative_rate"
+          name="creative_rate"
+          type="text"
+          class="validate"
+        />
+        <label for="creative_rate">Hourly rate</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">subject</i>
+        <textarea
+          id="creative_description"
+          name="creative_description"
+          class="materialize-textarea"
+        ></textarea>
+        <label for="creative_description">Description</label>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Create Account
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>
 
 {% endblock %}

@@ -1,17 +1,16 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
-    <ul class="collapsible" data-collapsible="accordion">
-        {% for creative in creatives %} 
-        <li>
-            <div class="collapsible-header">
-                <i class="material-icons">expand_more</i>
-                {{creative.first_name}} {{creative.last_name}} {{creative.country}} {{creative.skills}} {{creative.hourly_rate}}
-            </div>
-            <div class="collapsible-body">
-                <span>{{creative.description}}</span>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+<ul class="collapsible" data-collapsible="accordion">
+  {% for creative in creatives %}
+  <li>
+    <div class="collapsible-header">
+      <i class="material-icons">expand_more</i>
+      {{creative.first_name}} {{creative.last_name}} {{creative.country}} {{creative.skills}} {{creative.hourly_rate}}
+    </div>
+    <div class="collapsible-body">
+      <span>{{creative.description}}</span>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}
