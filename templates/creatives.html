@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for creative in creatives %} 
+        {{creative.first_name}} 
+        {{creative.last_name}} 
+        {{creative.email}}
+        {{creative.phone}} 
+        {{creative.city}} 
+        {{creative.country}}
+        {{creative.skills}}
+        {{creative.hourly_rate}}
+        {{creative.description}}
+    {% endfor %}
+{% endblock %}

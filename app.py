@@ -12,9 +12,9 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-@app.route('/get_work')
-def get_work():
-    return render_template("work.html", work=mongo.db.work.find())
+@app.route('/get_creatives')
+def get_creatives():
+    return render_template("creatives.html", creatives=mongo.db.creatives.find())
 
 
 if __name__ == '__main__':
