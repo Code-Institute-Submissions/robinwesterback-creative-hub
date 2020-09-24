@@ -14,7 +14,8 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/get_creatives')
 def get_creatives():
-    return render_template("creatives.html", creatives=mongo.db.creatives.find())
+    return render_template("creatives.html",
+                           creatives=mongo.db.creatives.find())
 
 
 @app.route('/create_creative')
