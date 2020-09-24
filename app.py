@@ -56,6 +56,11 @@ def update_creative(creative_id):
     })
     return redirect(url_for('get_creatives'))
 
+@app.route('/delete_creative/<creative_id>')
+def delete_creative(creative_id):
+    mongo.db.creatives.remove({'_id': ObjectId(creative_id)})
+    return redirect(url_for('get_creatives'))
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
