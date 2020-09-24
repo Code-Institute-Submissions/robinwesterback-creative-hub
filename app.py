@@ -3,10 +3,15 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
+# DB URI import for local workspace
+from os import path
+if path.exists("env.py"):
+    import env
+
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = 'creativeHub'
-app.config["MONGO_URI"] = 'mongodb+srv://robin:Kungen1989@myfirstcluster.lxmdn.mongodb.net/creativeHub?retryWrites=true&w=majority'
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 
 mongo = PyMongo(app)
 
