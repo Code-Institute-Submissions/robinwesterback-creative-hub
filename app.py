@@ -34,6 +34,28 @@ def insert_creative():
     creatives.insert_one(request.form.to_dict())
     return redirect(url_for('get_creatives'))
 
+@app.route('/edit_creative/<creative_id>')
+def edit_creative(creative_id):
+    the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)}) 
+    return render_template('editCreative.html', creative=the_creative)
+
+@app.route('/update_creative/<creative_id>', methods=["POST"])
+def update_creative(creative_id):
+    creatives = mongo.db.creatives
+    creatives.update( {'_id': ObjectId(creative_id)},
+    {
+        'first_name': request.form.get('first_name'),
+        'last_name': request.form.get('last_name'),
+        'email': request.form.get('email'),
+        'phone': request.form.get('phone'),
+        'city': request.form.get('city'),
+        'country': request.form.get('country'),
+        'skills': request.form.get('skills'),
+        'hourly_rate': request.form.get('hourly_rate'),
+        'description': request.form.get('description')
+    })
+    return redirect(url_for('get_creatives'))
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

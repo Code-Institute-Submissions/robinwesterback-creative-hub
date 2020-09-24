@@ -4,8 +4,14 @@
   {% for creative in creatives %}
   <li>
     <div class="collapsible-header">
-      <i class="material-icons">expand_more</i>
-      {{creative.first_name}} {{creative.last_name}} {{creative.country}} {{creative.skills}} {{creative.hourly_rate}}
+      <div class="col s3">
+        <i class="material-icons">expand_more</i>
+        <a class="waves-effect waves-light btn">Delete Account</a>
+        <a href="{{url_for('edit_creative', creative_id=creative._id)}}" class="waves-effect waves-light btn">Edit Account</a>
+      </div>
+      <div class="col s9">
+        {{creative.first_name}} {{creative.last_name}} {{creative.country}} {{creative.skills}} {{creative.hourly_rate}}
+      </div>
     </div>
     <div class="collapsible-body">
       <span>{{creative.description}}</span>
