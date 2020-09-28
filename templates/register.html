@@ -1,25 +1,55 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container">
+<div class="row">
+  <form action="{{ url_for('register') }}" method="POST" class="col s12">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <form method="POST" action="{{ url_for('register') }}">
-                <div class="form-group">
-                    <label for="exampleInputEmail">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword">Password</label>
-                    <input type="password" class="form-control" name="pass" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Register</button>
-            </form>
-            <br>
-            <div>
-                Have an account? <a href="{{ url_for('user_interface') }}">Sign in here</a>.
-            </div>
-        </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="first_name" name="first_name" type="text" class="validate" />
+        <label for="first_name">First Name</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="last_name" name="last_name" type="text" class="validate" />
+        <label for="last_name">Last Name</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="email" name="email" type="email" class="validate" />
+        <label for="email">E-mail</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone" name="phone" type="tel" class="validate" />
+        <label for="phone">Telephone</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="city" name="city" type="text" class="validate" />
+        <label for="city">City</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="country" name="country" type="text" class="validate" />
+        <label for="country">Country</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="password" name="password" type="password" class="validate" />
+        <label for="password">Password</label>
+      </div>
     </div>
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Create Account
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+  <br />
+  <div>
+    Have an account? <a href="{{ url_for('user_interface') }}">Sign in here</a>.
+  </div>
 </div>
 
 {% endblock %}

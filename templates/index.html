@@ -1,4 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>This is Home!</h1>
+<h1>Where creatives and employers meet</h1>
+
+<p>Our creatives have delivered thousands of projects. Connect with them and find out how they can solve your problems.</p>
+<a href="{{url_for('get_creatives')}}">Find Creatives</a>
+
+<p>There is a high demand for creative talent. Create an account and let potential clients get in touch with you.</p>
+<a href="{{url_for('register')}}">Create Account</a>
+
 {% endblock %}
