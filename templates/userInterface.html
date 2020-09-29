@@ -1,7 +1,142 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Welcome to your user interface</h1>
+<!-- Welcome -->
 
-<h2>Update your creative profile here</h2>
+<div class="section row center">
+  <h1>Welcome to your user interface</h1>
+</div>
+
+<div class="divider"></div>
+
+<!-- Post a brief -->
+
+<div class="section row">
+  <div class="row center-align">
+    <i class="material-icons large center-align">local_post_office</i>
+  </div>
+  <p>
+    Do you need to hire creatives for your journey ahead? Post a brief to let
+    creatives know that you are hiring.
+  </p>
+  <div class="row center-align">
+    <a href="{{url_for('get_creatives')}}" class="waves-effect waves-light btn">
+      Create brief
+      <i class="material-icons right">create</i>
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Update account details -->
+
+<div class="section row center">
+  <h2>Update Account Details</h2>
+  <form action="{{ url_for('register_client') }}" method="POST" class="col s12">
+    <!-- User details -->
+
+    <h3>User Details</h3>
+    <div class="row">
+      <!-- First name -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="first_name" name="first_name" type="text" class="validate" />
+        <label for="first_name">First Name</label>
+      </div>
+
+      <!-- Last name -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="last_name" name="last_name" type="text" class="validate" />
+        <label for="last_name">Last Name</label>
+      </div>
+
+      <!-- E-mail -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="email" name="email" type="email" class="validate" />
+        <label for="email">E-mail</label>
+      </div>
+
+      <!-- Password -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="password" name="password" type="password" class="validate" />
+        <label for="password">Password</label>
+      </div>
+
+      <!-- Client details -->
+
+      <h3>Client Details</h3>
+
+      <!-- Company name -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="company_name"
+          name="company_name"
+          type="text"
+          class="validate"
+        />
+        <label for="company_name">Company Name</label>
+      </div>
+
+      <!-- Phone -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone" name="phone" type="tel" class="validate" />
+        <label for="phone">Telephone</label>
+      </div>
+
+      <!-- Address -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="address" name="address" type="text" class="validate" />
+        <label for="address">Address</label>
+      </div>
+
+      <!-- City -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="city" name="city" type="text" class="validate" />
+        <label for="city">City</label>
+      </div>
+
+      <!-- Country -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="country" name="country" type="text" class="validate" />
+        <label for="country">Country</label>
+      </div>
+
+      <!-- VAT ID -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="vat_id" name="vat_id" type="text" class="validate" />
+        <label for="vat_id">VAT ID</label>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Update Account
+        <i class="material-icons right">send</i>
+      </button>
+      <a href="" class="waves-effect waves-light btn">Delete Account<i class="material-icons right">delete</i></a>
+    </div>
+  </form>
+</div>
 
 {% endblock %}
