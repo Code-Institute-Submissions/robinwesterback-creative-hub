@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<ul class="collapsible" data-collapsible="accordion">
+  {% for brief in briefs %}
+  <li>
+    <div class="collapsible-header">
+      <div class="col s3">
+        <i class="material-icons">expand_more</i>
+        <a href="" class="waves-effect waves-light btn">Delete Brief</a>
+        <a href="" class="waves-effect waves-light btn">Edit Brief</a>
+      </div>
+      <div class="col s9">
+        {{brief.title}} {{brief.hours}} {{brief.duration}} {{brief.required}} {{brief.budget}}
+      </div>
+    </div>
+    <div class="collapsible-body">
+      <span>{{brief.description}}</span>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

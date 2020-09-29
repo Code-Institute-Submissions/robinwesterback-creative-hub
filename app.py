@@ -187,6 +187,51 @@ def delete_creative(creative_id):
     return redirect(url_for('get_creatives'))
 
 
+# Get briefs
+@app.route('/get_briefs')
+def get_briefs():
+    return render_template("briefs.html",
+                           briefs=mongo.db.briefs.find())
+
+
+# Create brief
+@app.route('/create_brief')
+def create_brief():
+    return render_template('createBrief.html')
+
+
+# Insert brief
+@app.route('/insert_brief', methods=['POST'])
+def insert_brief():
+    briefs = mongo.db.briefs
+    briefs.insert_one(request.form.to_dict())
+    return redirect(url_for('user_interface'))
+
+
+# Update brief
+@app.route('/update_brief/<brief_id>', methods=["POST"])
+def update_brief(brief_id):
+    briefs = mongo.db.briefs
+    briefs.update({'_id': ObjectId(brief_id)},
+                     {
+        'title': request.form.get('title'),
+        'hours': request.form.get('hours'),
+        'duration': request.form.get('duration'),
+        'required': request.form.get('required'),
+        'preferred': request.form.get('preferred'),
+        'budget': request.form.get('budget'),
+        'description': request.form.get('description')
+    })
+    return redirect(url_for('get_briefs'))
+
+
+# Delete brief
+@app.route('/delete_brief/<brief_id>')
+def delete_brief(brief_id):
+    mongo.db.briefs.remove({'_id': ObjectId(brief_id)})
+    return redirect(url_for('get_briefs'))
+
+
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),

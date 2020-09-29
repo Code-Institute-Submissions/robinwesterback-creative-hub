@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- Register form -->
+
+<!-- Brief info -->
+
+<div class="row">
+  <h1>Create Brief</h1>
+  <form action="{{ url_for('insert_brief') }}" method="POST" class="col s12">
+    <h2>Brief details</h2>
+    <div class="row">
+      <!-- Title -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="title" name="title" type="text" class="validate" />
+        <label for="title">Title</label>
+      </div>
+
+      <!-- Hours needed -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="hours" name="hours" type="text" class="validate" />
+        <label for="hours">Hours needed</label>
+      </div>
+
+      <!-- Duration -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="duration" name="duration" type="text" class="validate" />
+        <label for="duration">Duration</label>
+      </div>
+
+      <!-- Required skill -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="required" name="required" type="text" class="validate" />
+        <label for="required">Required skills</label>
+      </div>
+
+      <!-- Preferred skills -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input id="preferred" name="preferred" type="text" class="validate" />
+        <label for="preferred">Preferred skills</label>
+      </div>
+
+      <!-- Budget -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="budget" name="budget" type="text" class="validate" />
+        <label for="budget">Budget</label>
+      </div>
+
+      <!-- Description -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">subject</i>
+        <textarea
+          id="description"
+          name="description"
+          class="materialize-textarea"
+        ></textarea>
+        <label for="description">Description</label>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Post Brief
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
