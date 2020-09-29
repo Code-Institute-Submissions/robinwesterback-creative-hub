@@ -1,9 +1,15 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="section row">
+<!-- Section home -->
+
+<div class="section row center">
   <h1>Welcome to the Creative Hub<br />Where creatives and employers meet</h1>
 </div>
+
 <div class="divider"></div>
+
+<!-- Section find creatives -->
+
 <div class="section">
   <div class="row center-align">
     <i class="material-icons large center-align">star</i>
@@ -14,15 +20,37 @@
     journey ahead.
   </p>
   <div class="row center-align">
-    <a href="{{url_for('get_creatives')}}">
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        Find Creatives
-        <i class="material-icons right">search</i>
-      </button>
+    <a href="{{url_for('get_creatives')}}" class="waves-effect waves-light btn">
+      Find Creatives
+      <i class="material-icons right">search</i>
     </a>
   </div>
 </div>
+
 <div class="divider"></div>
+
+<!-- Section find briefs -->
+
+<div class="section">
+  <div class="row center-align">
+    <i class="material-icons large center-align">drafts</i>
+  </div>
+  <p>
+    Our clients are have a high demand of creative services. Find client briefs
+    and apply to your next job.
+  </p>
+  <div class="row center-align">
+    <a href="{{url_for('get_creatives')}}" class="waves-effect waves-light btn">
+      Find Briefs
+      <i class="material-icons right">search</i>
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section create account -->
+
 <div class="section">
   <div class="row center-align">
     <i class="material-icons large center-align">thumb_up</i>
@@ -32,12 +60,48 @@
     account and let potential clients know that you are available for hire.
   </p>
   <div class="row center-align">
-    <a href="{{url_for('register')}}">
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        Create Account
-        <i class="material-icons right">create</i>
-      </button>
-    </a>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1"
+      >Create Account<i class="material-icons right">create</i></a
+    >
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Create Account</h4>
+        <p>Do you want to create a creative or client account?</p>
+        <div class="row">
+          <!-- Creative account -->
+
+          <div class="col s6">
+            <a
+              href="{{url_for('register')}}"
+              class="waves-effect waves-light btn"
+            >
+              Creative Account
+              <i class="material-icons right">accessibility</i>
+            </a>
+          </div>
+
+          <!-- Client account -->
+
+          <div class="col s6">
+            <a
+              href="{{url_for('register')}}"
+              class="waves-effect waves-light btn"
+            >
+              Client Account
+              <i class="material-icons right">person_outline</i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+          >Close</a
+        >
+      </div>
+    </div>
   </div>
 </div>
 

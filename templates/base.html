@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
+  <!-- Head -->
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,32 +21,46 @@
     />
     <title>Document</title>
   </head>
+
+  <!-- Body -->
+
   <body>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="{{url_for('home')}}" class="brand-logo">Creative Hub</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-          ><i class="material-icons">menu</i></a
-        >
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="{{url_for('home')}}">Home</a></li>
-          <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
-          <li><a href="{{url_for('register')}}">Create Account</a></li>
-          <li><a href="{{url_for('user_interface')}}">Log In</a></li>
-        </ul>
+
+  <!-- Header -->
+
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <a href="{{url_for('home')}}" class="brand-logo">Creative Hub</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
+            <li><a href="{{url_for('register')}}">Create Account</a></li>
+            <li><a href="{{url_for('user_interface')}}">Log In</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
+        <li><a href="{{url_for('register')}}">Create Account</a></li>
+        <li><a href="{{url_for('user_interface')}}">Log In</a></li>
+      </ul>
+    </header>
+
+    <!-- Main -->
+
+    <main>
+      <div class="container">
+        {% block content %} {% endblock %}
       </div>
-    </nav>
+    </main>
 
-    <ul class="sidenav" id="mobile-demo">
-      <li><a href="{{url_for('home')}}">Home</a></li>
-      <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
-      <li><a href="{{url_for('register')}}">Create Account</a></li>
-      <li><a href="{{url_for('user_interface')}}">Log In</a></li>
-    </ul>
-
-    <div class="container">
-      {% block content %} {% endblock %}
-    </div>
+    <!-- Footer -->
 
     <footer class="page-footer">
       <div class="container">
@@ -95,6 +112,8 @@
       </div>
     </footer>
 
+    <!-- Scripts -->
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
       integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
@@ -103,7 +122,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $(".collapsible").collapsible(), $(".sidenav").sidenav();
+        $(".collapsible").collapsible(),
+          $(".sidenav").sidenav(),
+          $(".modal").modal();
       });
     </script>
   </body>
