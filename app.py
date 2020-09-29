@@ -69,6 +69,35 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/register_creative', methods=['POST', 'GET'])
+def register_creative():
+    if request.method == 'POST':
+        users = mongo.db.users
+        creatives = mongo.db.creatives
+        existing_user = users.find_one({'email': request.form['email']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(
+                request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'email': request.form['email'],
+                          'first_name': request.form.get('first_name'),
+                          'last_name': request.form.get('last_name'),
+                          'email': request.form.get('email'),
+                          'phone': request.form.get('phone'),
+                          'city': request.form.get('city'),
+                          'country': request.form.get('country'),
+                          'password': hashpass})
+            creatives.insert({'skills': request.form['skills'],
+                              'hourly_rate': request.form['hourly_rate'],
+                              'description': request.form['description']})
+            session['email'] = request.form['email']
+            return redirect(url_for('user_interface'))
+
+        return 'That email already exists!'
+
+    return render_template('register_creative.html')
+
+
 @app.route('/get_creatives')
 def get_creatives():
     return render_template("creatives.html",
