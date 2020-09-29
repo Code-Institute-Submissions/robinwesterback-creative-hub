@@ -1,11 +1,45 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Where creatives and employers meet</h1>
-
-<p>Our creatives have delivered thousands of projects. Connect with them and find out how they can solve your problems.</p>
-<a href="{{url_for('get_creatives')}}">Find Creatives</a>
-
-<p>There is a high demand for creative talent. Create an account and let potential clients get in touch with you.</p>
-<a href="{{url_for('register')}}">Create Account</a>
+<div class="divider"></div>
+<div class="section row">
+  <h1>Welcome to the Creative Hub<br />Where creatives and employers meet</h1>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="row center-align">
+    <i class="material-icons large center-align">star</i>
+  </div>
+  <p>
+    Our creatives have delivered thousands of projects and are proven
+    professionals. Connect with the creatives to get them onboard on your
+    journey ahead.
+  </p>
+  <div class="row center-align">
+    <a href="{{url_for('get_creatives')}}">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Find Creatives
+        <i class="material-icons right">search</i>
+      </button>
+    </a>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="row center-align">
+    <i class="material-icons large center-align">thumb_up</i>
+  </div>
+  <p>
+    Are you a professional creative looking for new assignments? Create an
+    account and let potential clients know that you are available for hire.
+  </p>
+  <div class="row center-align">
+    <a href="{{url_for('register')}}">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Create Account
+        <i class="material-icons right">create</i>
+      </button>
+    </a>
+  </div>
+</div>
 
 {% endblock %}

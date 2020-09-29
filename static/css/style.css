@@ -1,6 +1,28 @@
 body {
+  font-size: 1.5rem;
   line-height: 1.8;
   font-family: "Open Sans", sans-serif;
   background-color: #fafafa;
   color: #333333;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+/* h1::after {
+  content: "";
+  display: block;
+  margin-top: 1.2rem;
+  height: 2px;
+  width: 70px;
+  background: #333333;
+} */
+
+.rotate {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
