@@ -19,6 +19,10 @@ h1 {
   background: #333333;
 } */
 
+footer i {
+    padding-top: 5px;
+}
+
 .rotate {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
