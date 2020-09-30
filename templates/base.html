@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <!-- Head -->
 
   <head>
@@ -25,8 +24,7 @@
   <!-- Body -->
 
   <body>
-
-  <!-- Header -->
+    <!-- Header -->
 
     <header>
       <nav>
@@ -39,7 +37,8 @@
             <li><a href="{{url_for('home')}}">Home</a></li>
             <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
             <li><a href="{{url_for('get_briefs')}}">Find Briefs</a></li>
-            <li><a href="{{url_for('register')}}">Create Account</a></li>
+            <!-- Modal Trigger -->
+            <li><a class="modal-trigger" href="#modal1">Create Account</a></li>
             <li><a href="{{url_for('user_interface')}}">Log In</a></li>
           </ul>
         </div>
@@ -49,9 +48,48 @@
         <li><a href="{{url_for('home')}}">Home</a></li>
         <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
         <li><a href="{{url_for('get_briefs')}}">Find Briefs</a></li>
-        <li><a href="{{url_for('register')}}">Create Account</a></li>
+        <!-- Modal Trigger -->
+        <li><a class="modal-trigger" href="#modal1">Create Account</a></li>
         <li><a href="{{url_for('user_interface')}}">Log In</a></li>
       </ul>
+
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Create Account</h4>
+          <p>Do you want to create a creative or client account?</p>
+          <div class="row">
+            <!-- Creative account -->
+
+            <div class="col s6">
+              <a
+                href="{{url_for('register_creative')}}"
+                class="waves-effect waves-light btn"
+              >
+                Creative Account
+                <i class="material-icons right">accessibility</i>
+              </a>
+            </div>
+
+            <!-- Client account -->
+
+            <div class="col s6">
+              <a
+                href="{{url_for('register_client')}}"
+                class="waves-effect waves-light btn"
+              >
+                Client Account
+                <i class="material-icons right">person_outline</i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+            >Close</a
+          >
+        </div>
+      </div>
     </header>
 
     <!-- Main -->
