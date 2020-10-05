@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
+<h1>{{session['email']}}</h1>
+<h1>{{session.email}}</h1>
 <!-- Welcome -->
 
 <div class="section row center">
@@ -28,20 +30,37 @@
 
 <div class="divider"></div>
 
+<!-- Post a creative -->
+
+<div class="section row">
+  <div class="row center-align">
+    <i class="material-icons large center-align">local_post_office</i>
+  </div>
+  <p>
+    Do you want to let potential clients know that you are ready for work? Post a creative to let
+    them know.
+  </p>
+  <div class="row center-align">
+    <a href="{{url_for('create_creative')}}" class="waves-effect waves-light btn">
+      Create creative
+      <i class="material-icons right">create</i>
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- Update account details -->
 
 <div class="section row center">
   <h2>Update Account Details</h2>
   <form action="{{ url_for('register_client') }}" method="POST" class="col s12">
-    <!-- User details -->
-
-    <h3>User Details</h3>
     <div class="row">
       <!-- First name -->
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="first_name" name="first_name" type="text" class="validate" />
+        <input id="first_name" name="first_name" type="text" class="validate" value="{{user.first_name}}"/>
         <label for="first_name">First Name</label>
       </div>
 
@@ -49,7 +68,7 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="last_name" name="last_name" type="text" class="validate" />
+        <input id="last_name" name="last_name" type="text" class="validate" value="{{user.last_name}}"/>
         <label for="last_name">Last Name</label>
       </div>
 
@@ -57,56 +76,23 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="email" name="email" type="email" class="validate" />
+        <input id="email" name="email" type="email" class="validate" value="{{user.email}}"/>
         <label for="email">E-mail</label>
-      </div>
-
-      <!-- Password -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="password" name="password" type="password" class="validate" />
-        <label for="password">Password</label>
-      </div>
-
-      <!-- Client details -->
-
-      <h3>Client Details</h3>
-
-      <!-- Company name -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input
-          id="company_name"
-          name="company_name"
-          type="text"
-          class="validate"
-        />
-        <label for="company_name">Company Name</label>
       </div>
 
       <!-- Phone -->
 
       <div class="input-field col s12">
         <i class="material-icons prefix">phone</i>
-        <input id="phone" name="phone" type="tel" class="validate" />
+        <input id="phone" name="phone" type="tel" class="validate" value="{{user.phone}}"/>
         <label for="phone">Telephone</label>
-      </div>
-
-      <!-- Address -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="address" name="address" type="text" class="validate" />
-        <label for="address">Address</label>
       </div>
 
       <!-- City -->
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="city" name="city" type="text" class="validate" />
+        <input id="city" name="city" type="text" class="validate" value="{{user.city}}"/>
         <label for="city">City</label>
       </div>
 
@@ -114,16 +100,8 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="country" name="country" type="text" class="validate" />
+        <input id="country" name="country" type="text" class="validate" value="{{user.country}}"/>
         <label for="country">Country</label>
-      </div>
-
-      <!-- VAT ID -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="vat_id" name="vat_id" type="text" class="validate" />
-        <label for="vat_id">VAT ID</label>
       </div>
     </div>
 

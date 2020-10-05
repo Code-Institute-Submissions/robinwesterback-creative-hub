@@ -37,10 +37,20 @@
             <li><a href="{{url_for('home')}}">Home</a></li>
             <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
             <li><a href="{{url_for('get_briefs')}}">Find Briefs</a></li>
+
+            <!-- If user is logged in -->
+            {% if 'email' in session %}
+            <li><a href="{{url_for('user_interface')}}">Profile</a></li>
+            <li><a href="{{url_for('logout')}}">Log Out</a></li>
+            {% endif %}
+
+            <!-- If user is not logged in -->
+            {% if 'email' not in session %}
             <li><a href="{{url_for('user_interface')}}">Log In</a></li>
             
             <!-- Modal Trigger -->
             <li><a class="modal-trigger" href="#modal1">Create Account</a></li>
+            {% endif %}
           </ul>
         </div>
       </nav>
@@ -49,10 +59,20 @@
         <li><a href="{{url_for('home')}}">Home</a></li>
         <li><a href="{{url_for('get_creatives')}}">Find Creatives</a></li>
         <li><a href="{{url_for('get_briefs')}}">Find Briefs</a></li>
+
+        <!-- If user is logged in -->
+        {% if 'email' in session %}
+        <li><a href="{{url_for('user_interface')}}">Profile</a></li>
+        <li><a href="{{url_for('logout')}}">Log Out</a></li>
+        {% endif %}
+
+        <!-- If user is not logged in -->
+        {% if 'email' not in session %}
         <li><a href="{{url_for('user_interface')}}">Log In</a></li>
 
         <!-- Modal Trigger -->
         <li><a class="modal-trigger" href="#modal1">Create Account</a></li>
+        {% endif %}
       </ul>
 
       <!-- Modal Structure -->

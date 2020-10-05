@@ -28,7 +28,8 @@ def home():
 @app.route('/user_interface')
 def user_interface():
     if 'email' in session:
-        return render_template('userInterface.html', page_title='User Interface')
+        user = mongo.db.users.find_one({'email': session['email']})
+        return render_template('userInterface.html', user=user, page_title='User Interface')
 
     return render_template('login.html', page_title='Login')
 
@@ -45,6 +46,14 @@ def login():
             return redirect(url_for('user_interface'))
 
     return 'Invalid email/password combination'
+
+
+# Logout
+@app.route('/logout')
+def logout():
+    session.clear()
+
+    return render_template('index.html', page_title='Home')
 
 
 # Register
@@ -143,7 +152,8 @@ def get_creatives():
 # Create creative
 @app.route('/create_creative')
 def create_creative():
-    return render_template('createCreative.html')
+    user = mongo.db.users.find_one({'email': session['email']})
+    return render_template('createCreative.html', user=user)
 
 
 # Insert creative
@@ -158,7 +168,8 @@ def insert_creative():
 @app.route('/edit_user/<creative_id>')
 def edit_creative(creative_id):
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
-    return render_template('editCreative.html', creative=the_creative)
+    user = mongo.db.users.find_one({'email': session['email']})
+    return render_template('editCreative.html', creative=the_creative, user=user)
 
 
 # Update creative
@@ -197,7 +208,8 @@ def get_briefs():
 # Create brief
 @app.route('/create_brief')
 def create_brief():
-    return render_template('createBrief.html')
+    user = mongo.db.users.find_one({'email': session['email']})
+    return render_template('createBrief.html', user=user)
 
 
 # Insert brief

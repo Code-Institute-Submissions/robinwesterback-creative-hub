@@ -9,6 +9,67 @@
   <form action="{{ url_for('insert_brief') }}" method="POST" class="col s12">
     <h2>Brief details</h2>
     <div class="row">
+      <!-- First name -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="first_name" name="first_name" type="text" class="validate" value="{{user.first_name}}"/>
+        <label for="first_name">First Name</label>
+      </div>
+
+      <!-- Last name -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="last_name" name="last_name" type="text" class="validate" value="{{user.last_name}}"/>
+        <label for="last_name">Last Name</label>
+      </div>
+
+      <!-- E-mail -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="email" name="email" type="email" class="validate" value="{{user.email}}"/>
+        <label for="email">E-mail</label>
+      </div>
+
+      <!-- Phone -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone" name="phone" type="tel" class="validate" value="{{user.phone}}"/>
+        <label for="phone">Telephone</label>
+      </div>
+
+      <!-- City -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="city" name="city" type="text" class="validate" value="{{user.city}}"/>
+        <label for="city">City</label>
+      </div>
+
+      <!-- Country -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="country" name="country" type="text" class="validate" value="{{user.country}}"/>
+        <label for="country">Country</label>
+      </div>
+
+      <!-- Company name -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input
+          id="company_name"
+          name="company_name"
+          type="text"
+          class="validate"
+        />
+        <label for="company_name">Company Name</label>
+      </div>
+
       <!-- Title -->
 
       <div class="input-field col s12">
