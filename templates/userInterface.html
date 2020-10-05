@@ -1,11 +1,8 @@
 {% extends 'base.html' %} {% block content %}
-
-<h1>{{session['email']}}</h1>
-<h1>{{session.email}}</h1>
 <!-- Welcome -->
 
 <div class="section row center">
-  <h1>Welcome to your user interface</h1>
+  <h1>{{user.first_name}}, welcome to your user interface</h1>
 </div>
 
 <div class="divider"></div>
@@ -47,6 +44,145 @@
     </a>
   </div>
 </div>
+
+<div class="divider"></div>
+
+<!-- My Briefs -->
+
+<h1>Your Briefs</h1>
+
+<ul class="collapsible" data-collapsible="accordion">
+  {% for brief in briefs %}
+  <li>
+    <div class="collapsible-header">
+      <div class="col s3">
+        <i class="material-icons">expand_more</i>
+        <a href="" class="waves-effect waves-light btn">Delete Brief</a>
+        <a href="" class="waves-effect waves-light btn">Edit Brief</a>
+      </div>
+      <div class="col s9">
+        {{brief.title}} {{brief.hours}} {{brief.duration}} {{brief.required}}
+        {{brief.budget}}
+      </div>
+    </div>
+    <div class="collapsible-body">
+      <span>{{brief.description}}</span>
+
+      <!-- Modal Trigger -->
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal3"
+        >Apply</a
+      >
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+
+<!-- Modal Structure -->
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <h4>Brief info</h4>
+    <p>This is a placeholder for brief data</p>
+    <h4>Application form</h4>
+    <div class="row">
+      <form action="" method="POST" class="col s12">
+        <div class="row">
+          <!-- Name -->
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="name" name="name" type="text" class="validate" />
+            <label for="name">Name</label>
+          </div>
+
+          <!-- Company -->
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="company" name="company" type="text" class="validate" />
+            <label for="company">Company</label>
+          </div>
+
+          <!-- E-mail -->
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="email" name="email" type="email" class="validate" />
+            <label for="email">E-mail</label>
+          </div>
+
+          <!-- Phone -->
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">phone</i>
+            <input id="phone" name="phone" type="tel" class="validate" />
+            <label for="phone">Telephone</label>
+          </div>
+
+          <!-- Description -->
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">subject</i>
+            <textarea
+              id="description"
+              name="description"
+              class="materialize-textarea"
+            ></textarea>
+            <label for="description">Description</label>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+
+        <div class="row">
+          <button
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Apply
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+        >Close</a
+      >
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- My Creatives -->
+
+<h1>Your Creatives</h1>
+
+<ul class="collapsible" data-collapsible="accordion">
+  {% for creative in creatives %}
+  <li>
+    <div class="collapsible-header">
+      <div class="col s3">
+        <i class="material-icons">expand_more</i>
+        <a href="" class="waves-effect waves-light btn">Delete Creative</a>
+        <a href="" class="waves-effect waves-light btn">Edit Creative</a>
+      </div>
+      <div class="col s9">
+        {{creative.skills}} {{creative.hourly_rate}}
+      </div>
+    </div>
+    <div class="collapsible-body">
+      <span>{{creative.description}}</span>
+
+      <!-- Modal Trigger -->
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal3"
+        >Apply</a
+      >
+    </div>
+  </li>
+  {% endfor %}
+</ul>
 
 <div class="divider"></div>
 

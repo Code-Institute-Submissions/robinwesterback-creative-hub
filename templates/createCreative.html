@@ -7,7 +7,7 @@
 <div class="row">
   <h1>Create Creative Account</h1>
   <form
-    action="{{ url_for('register_creative') }}"
+    action="{{ url_for('insert_creative') }}"
     method="POST"
     class="col s12"
   >
@@ -33,7 +33,7 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="email" name="email" type="email" class="validate" value="{{user.email}}"/>
+        <input id="email" name="email" type="email" class="validate" value="{{user.email}}" readonly/>
         <label for="email">E-mail</label>
       </div>
 

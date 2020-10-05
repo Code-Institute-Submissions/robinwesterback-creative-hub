@@ -29,9 +29,11 @@ def home():
 def user_interface():
     if 'email' in session:
         user = mongo.db.users.find_one({'email': session['email']})
-        return render_template('userInterface.html', user=user, page_title='User Interface')
+        briefs = mongo.db.briefs.find({'email': session['email']})
+        creatives = mongo.db.creatives.find({'email': session['email']})
+        return render_template('userInterface.html', user=user, briefs=briefs, creatives=creatives, page_title='User Interface')
 
-    return render_template('login.html', page_title='Login')
+    return render_template('login.html', user=user, page_title='Login')
 
 
 # Login
