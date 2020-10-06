@@ -33,7 +33,7 @@ def user_interface():
         creatives = mongo.db.creatives.find({'email': session['email']})
         return render_template('userInterface.html', user=user, briefs=briefs, creatives=creatives, page_title='User Interface')
 
-    return render_template('login.html', user=user, page_title='Login')
+    return render_template('login.html', page_title='Login')
 
 
 # Login
@@ -84,6 +84,28 @@ def register():
     return render_template('register.html')
 
 
+# Update user
+@app.route('/update_user', methods=["POST"])
+def update_user():
+    users = mongo.db.users
+    users.update({'email': session['email']},
+                 {
+                 'first_name': request.form.get('first_name'),
+                 'last_name': request.form.get('last_name'),
+                 'phone': request.form.get('phone'),
+                 'city': request.form.get('city'),
+                 'country': request.form.get('country')
+    })
+    return redirect(url_for('user_interface'))
+
+
+# Delete user
+@app.route('/delete_user/<user_id>')
+def delete_user(user_id):
+    mongo.db.users.remove({'_id': ObjectId(user_id)})
+    return redirect(url_for('home'))
+
+"""
 # Register Creative
 @app.route('/register_creative', methods=['POST', 'GET'])
 def register_creative():
@@ -112,8 +134,8 @@ def register_creative():
         return 'That email already exists!'
 
     return render_template('register_creative.html')
-
-
+"""
+"""
 # Register Client
 @app.route('/register_client', methods=['POST', 'GET'])
 def register_client():
@@ -142,13 +164,20 @@ def register_client():
         return 'That email already exists!'
 
     return render_template('register_client.html')
-
+"""
 
 # Get Creatives
 @app.route('/get_creatives')
 def get_creatives():
     return render_template("creatives.html",
                            creatives=mongo.db.creatives.find())
+
+
+# Contact creative
+@app.route('/contact_creative/<creative_id>')
+def contact_creative(creative_id):
+    the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
+    return render_template('contactCreative.html', creative=the_creative)
 
 
 # Create creative
@@ -163,15 +192,14 @@ def create_creative():
 def insert_creative():
     creatives = mongo.db.creatives
     creatives.insert_one(request.form.to_dict())
-    return redirect(url_for('get_creatives'))
+    return redirect(url_for('user_interface'))
 
 
 # Edit creative
 @app.route('/edit_user/<creative_id>')
 def edit_creative(creative_id):
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
-    user = mongo.db.users.find_one({'email': session['email']})
-    return render_template('editCreative.html', creative=the_creative, user=user)
+    return render_template('editCreative.html', creative=the_creative)
 
 
 # Update creative
@@ -207,6 +235,13 @@ def get_briefs():
                            briefs=mongo.db.briefs.find())
 
 
+# Contact employer
+@app.route('/contact_employer/<brief_id>')
+def contact_employer(brief_id):
+    the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
+    return render_template('contactEmployer.html', brief=the_brief)
+
+
 # Create brief
 @app.route('/create_brief')
 def create_brief():
@@ -222,17 +257,30 @@ def insert_brief():
     return redirect(url_for('user_interface'))
 
 
+# Edit brief
+@app.route('/edit_brief/<brief_id>')
+def edit_brief(brief_id):
+    the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
+    return render_template('editBrief.html', brief=the_brief)
+
+
 # Update brief
 @app.route('/update_brief/<brief_id>', methods=["POST"])
 def update_brief(brief_id):
     briefs = mongo.db.briefs
     briefs.update({'_id': ObjectId(brief_id)},
                      {
+        'first_name': request.form.get('first_name'),
+        'last_name': request.form.get('last_name'),
+        'email': request.form.get('email'),
+        'city': request.form.get('city'),
+        'country': request.form.get('country'),
+        'company_name': request.form.get('company_name'),
         'title': request.form.get('title'),
         'hours': request.form.get('hours'),
         'duration': request.form.get('duration'),
-        'required': request.form.get('required'),
-        'preferred': request.form.get('preferred'),
+        'required_skills': request.form.get('required_skills'),
+        'preferred_skills': request.form.get('preferred_skills'),
         'budget': request.form.get('budget'),
         'description': request.form.get('description')
     })

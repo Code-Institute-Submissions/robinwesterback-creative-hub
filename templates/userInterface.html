@@ -57,8 +57,8 @@
     <div class="collapsible-header">
       <div class="col s3">
         <i class="material-icons">expand_more</i>
-        <a href="" class="waves-effect waves-light btn">Delete Brief</a>
-        <a href="" class="waves-effect waves-light btn">Edit Brief</a>
+        <a href="{{url_for('delete_brief', brief_id=brief._id)}}" class="waves-effect waves-light btn">Delete Brief</a>
+        <a href="{{url_for('edit_brief', brief_id=brief._id)}}" class="waves-effect waves-light btn">Edit Brief</a>
       </div>
       <div class="col s9">
         {{brief.title}} {{brief.hours}} {{brief.duration}} {{brief.required}}
@@ -67,91 +67,10 @@
     </div>
     <div class="collapsible-body">
       <span>{{brief.description}}</span>
-
-      <!-- Modal Trigger -->
-      <a class="waves-effect waves-light btn modal-trigger" href="#modal3"
-        >Apply</a
-      >
     </div>
   </li>
   {% endfor %}
 </ul>
-
-<!-- Modal Structure -->
-<div id="modal3" class="modal">
-  <div class="modal-content">
-    <h4>Brief info</h4>
-    <p>This is a placeholder for brief data</p>
-    <h4>Application form</h4>
-    <div class="row">
-      <form action="" method="POST" class="col s12">
-        <div class="row">
-          <!-- Name -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="name" name="name" type="text" class="validate" />
-            <label for="name">Name</label>
-          </div>
-
-          <!-- Company -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="company" name="company" type="text" class="validate" />
-            <label for="company">Company</label>
-          </div>
-
-          <!-- E-mail -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="email" name="email" type="email" class="validate" />
-            <label for="email">E-mail</label>
-          </div>
-
-          <!-- Phone -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">phone</i>
-            <input id="phone" name="phone" type="tel" class="validate" />
-            <label for="phone">Telephone</label>
-          </div>
-
-          <!-- Description -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">subject</i>
-            <textarea
-              id="description"
-              name="description"
-              class="materialize-textarea"
-            ></textarea>
-            <label for="description">Description</label>
-          </div>
-        </div>
-
-        <!-- Submit button -->
-
-        <div class="row">
-          <button
-            class="btn waves-effect waves-light"
-            type="submit"
-            name="action"
-          >
-            Apply
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-        >Close</a
-      >
-    </div>
-  </div>
-</div>
 
 <div class="divider"></div>
 
@@ -165,8 +84,8 @@
     <div class="collapsible-header">
       <div class="col s3">
         <i class="material-icons">expand_more</i>
-        <a href="" class="waves-effect waves-light btn">Delete Creative</a>
-        <a href="" class="waves-effect waves-light btn">Edit Creative</a>
+        <a href="{{url_for('delete_creative', creative_id=creative._id)}}" class="waves-effect waves-light btn">Delete Creative</a>
+        <a href="{{url_for('edit_creative', creative_id=creative._id)}}" class="waves-effect waves-light btn">Edit Creative</a>
       </div>
       <div class="col s9">
         {{creative.skills}} {{creative.hourly_rate}}
@@ -174,11 +93,6 @@
     </div>
     <div class="collapsible-body">
       <span>{{creative.description}}</span>
-
-      <!-- Modal Trigger -->
-      <a class="waves-effect waves-light btn modal-trigger" href="#modal3"
-        >Apply</a
-      >
     </div>
   </li>
   {% endfor %}
@@ -186,11 +100,30 @@
 
 <div class="divider"></div>
 
-<!-- Update account details -->
+<!-- My Account -->
+
+<h1>Your Account</h1>
+
+<ul>
+  <li>
+    <div>
+      <div>
+        <i class="material-icons">account_circle</i>
+        {{user.first_name}} {{user.last_name}}
+      </div>
+      <div class="col s9">
+        <a href="" class="waves-effect waves-light btn">Delete user</a>
+        <a href="" class="waves-effect waves-light btn">Edit user</a>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<div class="divider"></div>
 
 <div class="section row center">
   <h2>Update Account Details</h2>
-  <form action="{{ url_for('register_client') }}" method="POST" class="col s12">
+  <form action="{{ url_for('update_user') }}" method="POST" class="col s12">
     <div class="row">
       <!-- First name -->
 
@@ -206,14 +139,6 @@
         <i class="material-icons prefix">account_circle</i>
         <input id="last_name" name="last_name" type="text" class="validate" value="{{user.last_name}}"/>
         <label for="last_name">Last Name</label>
-      </div>
-
-      <!-- E-mail -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="email" name="email" type="email" class="validate" value="{{user.email}}"/>
-        <label for="email">E-mail</label>
       </div>
 
       <!-- Phone -->
@@ -252,5 +177,4 @@
     </div>
   </form>
 </div>
-
 {% endblock %}

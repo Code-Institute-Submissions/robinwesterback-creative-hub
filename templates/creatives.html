@@ -10,107 +10,34 @@
     <div class="collapsible-header">
       <div class="col s3">
         <i class="material-icons">expand_more</i>
-        <a
-          href="{{url_for('delete_creative', creative_id=creative._id)}}"
-          class="waves-effect waves-light btn"
-          >Delete Account</a
-        >
-        <a
-          href="{{url_for('edit_creative', creative_id=creative._id)}}"
-          class="waves-effect waves-light btn"
-          >Edit Account</a
-        >
       </div>
       <div class="col s9">
-        {{creative.first_name}} {{creative.last_name}} {{creative.country}}
-        {{creative.skills}} {{creative.hourly_rate}}
+        <i class="material-icons prefix">account_circle</i>
+        {{creative.first_name}}
+        {{creative.last_name}} 
+        <i class="material-icons prefix">location_on</i>
+        {{creative.city}}
+        {{creative.country}}
+        <br/>
+        <i class="material-icons prefix">star</i>
+        {{creative.skills}}
+        <i class="material-icons prefix">attach_money</i>
+        {{creative.hourly_rate}}
       </div>
     </div>
     <div class="collapsible-body">
+      <i class="material-icons prefix">description</i>
       <span>{{creative.description}}</span>
-
-      <!-- Modal Trigger -->
-      <a class="waves-effect waves-light btn modal-trigger" href="#modal2"
-        >Contact</a
-      >
+      <br/>
+      <a
+          href="{{url_for('contact_creative', creative_id=creative._id)}}"
+          class="waves-effect waves-light btn"
+          >Contact Creative</a
+        >
     </div>
   </li>
   {% endfor %}
 </ul>
+{% endblock %}
 
-<!-- Modal Structure -->
-<div id="modal2" class="modal">
-  <div class="modal-content">
-    <h4>Creative info</h4>
-    <p>This is a placeholder for creative data</p>
-    <h4>Contact form</h4>
-    <div class="row">
-      <form action="" method="POST" class="col s12">
-        <div class="row">
-          <!-- Name -->
 
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="name" name="name" type="text" class="validate" />
-            <label for="name">Name</label>
-          </div>
-
-          <!-- Company -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="company" name="company" type="text" class="validate" />
-            <label for="company">Company</label>
-          </div>
-
-          <!-- E-mail -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="email" name="email" type="email" class="validate" />
-            <label for="email">E-mail</label>
-          </div>
-
-          <!-- Phone -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">phone</i>
-            <input id="phone" name="phone" type="tel" class="validate" />
-            <label for="phone">Telephone</label>
-          </div>
-
-          <!-- Description -->
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">subject</i>
-            <textarea
-              id="description"
-              name="description"
-              class="materialize-textarea"
-            ></textarea>
-            <label for="description">Description</label>
-          </div>
-        </div>
-
-        <!-- Submit button -->
-
-        <div class="row">
-          <button
-            class="btn waves-effect waves-light"
-            type="submit"
-            name="action"
-          >
-            Send inquiry
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-        >Close</a
-      >
-    </div>
-  </div>
-  {% endblock %}
-</div>
