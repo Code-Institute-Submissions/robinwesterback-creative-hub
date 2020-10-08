@@ -111,13 +111,12 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">hourglass_full</i>
-        <input
-          id="hours"
-          name="hours"
-          type="text"
-          class="validate"
-          value="{{brief.hours}}"
-        />
+        <select id="hours" name="hours" required>
+          <option value="{{brief.hours}}" disabled selected>{{brief.hours}}</option>
+          <option value="less than 40 hours">Less than 40 hours</option>
+          <option value="more than 40 hours">More than 40 hours</option>
+          <option value="more than 160 hours">More than 160 hours</option>
+        </select>
         <label for="hours">Hours needed</label>
       </div>
 

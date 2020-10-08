@@ -5,7 +5,7 @@
 <!-- User info -->
 
 <div class="row">
-<h1>Create User Account</h1>
+  <h1>Create User Account</h1>
   <form action="{{ url_for('register') }}" method="POST" class="col s12">
     <h2>User details</h2>
     <div class="row">
@@ -13,7 +13,14 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="first_name" name="first_name" type="text" class="validate" />
+        <input
+          id="first_name"
+          name="first_name"
+          type="text"
+          class="validate"
+          maxlength="30"
+          required
+        />
         <label for="first_name">First Name</label>
       </div>
 
@@ -21,15 +28,29 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="last_name" name="last_name" type="text" class="validate" />
+        <input
+          id="last_name"
+          name="last_name"
+          type="text"
+          class="validate"
+          maxlength="30"
+          required
+        />
         <label for="last_name">Last Name</label>
       </div>
 
       <!-- E-mail -->
 
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="email" name="email" type="email" class="validate" />
+        <i class="material-icons prefix">email</i>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          class="validate"
+          maxlength="40"
+          required
+        />
         <label for="email">E-mail</label>
       </div>
 
@@ -37,31 +58,59 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">phone</i>
-        <input id="phone" name="phone" type="tel" class="validate" />
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          class="validate"
+          maxlength="30"
+        />
         <label for="phone">Telephone</label>
       </div>
 
       <!-- City -->
 
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="city" name="city" type="text" class="validate" />
+        <i class="material-icons prefix">location_on</i>
+        <input
+          id="city"
+          name="city"
+          type="text"
+          class="validate"
+          maxlength="30"
+          required
+        />
         <label for="city">City</label>
       </div>
 
       <!-- Country -->
 
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="country" name="country" type="text" class="validate" />
+        <i class="material-icons prefix">location_on</i>
+        <input
+          id="country"
+          name="country"
+          type="text"
+          class="validate"
+          maxlength="30"
+          required
+        />
         <label for="country">Country</label>
       </div>
 
       <!-- Password -->
 
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="password" name="password" type="password" class="validate" />
+        <i class="material-icons prefix">security</i>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          class="validate"
+          minlength="8"
+          maxlength="30"
+          required
+        />
         <label for="password">Password</label>
       </div>
     </div>
@@ -79,16 +128,7 @@
   <br />
 
   <div>
-    Do you already have an account?
-
-    <br />
-
-    <a
-      href="{{ url_for('user_interface') }}"
-      class="btn waves-effect waves-light"
-      >Sign in
-      <i class="material-icons right">forward</i>
-    </a>
+    Do you already have an account? <a href="{{ url_for('user_interface') }}">Sign in</a> here.
   </div>
 </div>
 

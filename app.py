@@ -79,7 +79,7 @@ def register():
             session['email'] = request.form['email']
             return redirect(url_for('user_interface'))
 
-        return 'That email already exists!'
+        return render_template('errorRegister.html')
 
     return render_template('register.html')
 

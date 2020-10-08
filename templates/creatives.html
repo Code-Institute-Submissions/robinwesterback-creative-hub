@@ -13,12 +13,10 @@
       </div>
       <div class="col s9">
         <i class="material-icons prefix">account_circle</i>
-        {{creative.first_name}}
-        {{creative.last_name}} 
+        {{creative.first_name}} {{creative.last_name}}
         <i class="material-icons prefix">location_on</i>
-        {{creative.city}}
-        {{creative.country}}
-        <br/>
+        {{creative.city}} {{creative.country}}
+        <br />
         <i class="material-icons prefix">star</i>
         {{creative.skills}}
         <i class="material-icons prefix">attach_money</i>
@@ -28,16 +26,14 @@
     <div class="collapsible-body">
       <i class="material-icons prefix">description</i>
       <span>{{creative.description}}</span>
-      <br/>
+      <br />
       <a
-          href="{{url_for('contact_creative', creative_id=creative._id)}}"
-          class="waves-effect waves-light btn"
-          >Contact Creative</a
-        >
+        href="{{url_for('contact_creative', creative_id=creative._id)}}"
+        class="waves-effect waves-light btn"
+        >Contact Creative</a
+      >
     </div>
   </li>
   {% endfor %}
 </ul>
 {% endblock %}
-
-

@@ -1,25 +1,41 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <form method="POST" action="{{ url_for('login') }}">
-                <div class="form-group">
-                    <label for="exampleInputEmail">Email</label>
-                    <input type="text" class="form-control" name="email" placeholder="E-mail">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Log In</button>
-            </form>
-            <br>
-            <div>
-                Dont have an account? <a href="{{ url_for('register') }}">Sign up here</a>.
-            </div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <form method="POST" action="{{ url_for('login') }}">
+        <div class="form-group">
+          <label for="exampleInputEmail">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            name="email"
+            placeholder="E-mail"
+            maxlength="40"
+            required
+          />
         </div>
+        <div class="form-group">
+          <label for="exampleInputPassword">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+            minlength="8"
+            maxlength="30"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+      </form>
+      <br />
+      <div>
+        Dont have an account?
+        <a href="{{ url_for('register') }}">Sign up</a> here.
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock %}
