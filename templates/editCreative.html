@@ -2,7 +2,11 @@
 
 <h3>Edit Creative Ad</h3>
 <div class="row">
-  <form action="{{ url_for('update_creative', creative_id=creative._id) }}" method="POST" class="col s12">
+  <form
+    action="{{ url_for('update_creative', creative_id=creative._id) }}"
+    method="POST"
+    class="col s12"
+  >
     <div class="row">
       <!-- First name -->
 
@@ -73,7 +77,9 @@
       <div class="input-field col s12">
         <i class="material-icons prefix">star</i>
         <select id="skills" name="skills" required>
-          <option value="{{creative.skills}}" selected>{{creative.skills}}</option>
+          <option value="{{creative.skills}}" selected
+            >{{creative.skills}}</option
+          >
           {% for skill in skills %}
           <option value="{{skill.skill_name}}">{{skill.skill_name}}</option>
           {% endfor %}
@@ -86,7 +92,9 @@
       <div class="input-field col s12">
         <i class="material-icons prefix">attach_money</i>
         <select id="hourly_rate" name="hourly_rate" required>
-          <option value="{{creative.hourly_rate}}" selected>{{creative.hourly_rate}}</option>
+          <option value="{{creative.hourly_rate}}" selected
+            >{{creative.hourly_rate}}</option
+          >
           <option value="less than 1 000 SEK/h">Less than 1 000 SEK/h</option>
           <option value="more than 1 000 SEK/h">More than 1 000 SEK/h</option>
           <option value="more than 1 500 SEK/h">More than 1 500 SEK/h</option>
@@ -105,7 +113,9 @@
           minlength="30"
           maxlength="150"
           required
-        >{{creative.description}}</textarea>
+        >
+{{creative.description}}</textarea
+        >
         <label for="description">Description</label>
       </div>
     </div>

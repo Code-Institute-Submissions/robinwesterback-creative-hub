@@ -84,29 +84,6 @@ def register():
     return render_template('register.html')
 
 
-"""
-# Update user
-@app.route('/update_user', methods=["POST"])
-def update_user():
-    users = mongo.db.users
-    users.update({'email': session['email']},
-                 {
-                 'first_name': request.form.get('first_name'),
-                 'last_name': request.form.get('last_name'),
-                 'phone': request.form.get('phone'),
-                 'city': request.form.get('city'),
-                 'country': request.form.get('country')
-    })
-    return redirect(url_for('user_interface'))
-"""
-"""
-# Delete user
-@app.route('/delete_user/<user_id>')
-def delete_user(user_id):
-    mongo.db.users.remove({'_id': ObjectId(user_id)})
-    return redirect(url_for('home'))
-"""
-
 # Get Creatives
 
 
