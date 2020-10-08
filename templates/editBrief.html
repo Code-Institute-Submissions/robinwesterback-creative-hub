@@ -36,21 +36,6 @@
         <label for="last_name">Last name</label>
       </div>
 
-      <!-- E-mail -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">email</i>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          class="validate"
-          value="{{brief.email}}"
-          readonly
-        />
-        <label for="email">E-mail</label>
-      </div>
-
       <!-- City -->
 
       <div class="input-field col s12">
@@ -112,7 +97,9 @@
       <div class="input-field col s12">
         <i class="material-icons prefix">hourglass_full</i>
         <select id="hours" name="hours" required>
-          <option value="{{brief.hours}}" disabled selected>{{brief.hours}}</option>
+          <option value="{{brief.hours}}" selected
+            >{{brief.hours}}</option
+          >
           <option value="less than 40 hours">Less than 40 hours</option>
           <option value="more than 40 hours">More than 40 hours</option>
           <option value="more than 160 hours">More than 160 hours</option>
@@ -124,13 +111,14 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">hourglass_full</i>
-        <input
-          id="duration"
-          name="duration"
-          type="text"
-          class="validate"
-          value="{{brief.duration}}"
-        />
+        <select id="duration" name="duration" required>
+          <option value="{{brief.duration}}" selected
+            >{{brief.duration}}</option
+          >
+          <option value="less than 3 months">Less than 3 months</option>
+          <option value="more than 3 months">More than 3 months</option>
+          <option value="more than 6 months">More than 6 months</option>
+        </select>
         <label for="duration">Duration</label>
       </div>
 
@@ -138,41 +126,29 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">star</i>
-        <input
-          id="required_skills"
-          name="required_skills"
-          type="text"
-          class="validate"
-          value="{{brief.required_skills}}"
-        />
-        <label for="required_skills">Required skills</label>
-      </div>
-
-      <!-- Preferred skills -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">star</i>
-        <input
-          id="preferred_skills"
-          name="preferred_skills"
-          type="text"
-          class="validate"
-          value="{{brief.preferred_skills}}"
-        />
-        <label for="preferred_skills">Preferred skills</label>
+        <select id="required_skills" name="required_skills" required>
+          <option value="{{brief.required_skills}}" selected
+            >{{brief.required_skills}}</option
+          >
+          {% for skill in skills %}
+          <option value="{{skill.skill_name}}">{{skill.skill_name}}</option>
+          {% endfor %}
+        </select>
+        <label for="required_skills">Required Skill</label>
       </div>
 
       <!-- Budget -->
 
       <div class="input-field col s12">
         <i class="material-icons prefix">attach_money</i>
-        <input
-          id="budget"
-          name="budget"
-          type="text"
-          class="validate"
-          value="{{brief.budget}}"
-        />
+        <select id="budget" name="budget" required>
+          <option value="{{brief.budget}}" selected
+            >{{brief.budget}}</option
+          >
+          <option value="less than 50 000 SEK">less than 50 000 SEK</option>
+          <option value="more than 50 000 SEK">More than 50 000 SEK</option>
+          <option value="more than 200 000 SEK">More than 200 000 SEK</option>
+        </select>
         <label for="budget">Budget</label>
       </div>
 
@@ -184,8 +160,9 @@
           id="project_start"
           name="project_start"
           type="text"
-          class="validate"
+          class="datepicker"
           value="{{brief.project_start}}"
+          required
         />
         <label for="project_start">Project start</label>
       </div>
@@ -209,7 +186,7 @@
 
     <div class="row">
       <button class="btn waves-effect waves-light" type="submit" name="action">
-        Update Account
+        Update Brief
         <i class="material-icons right">send</i>
       </button>
     </div>

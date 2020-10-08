@@ -83,6 +83,7 @@ def register():
 
     return render_template('register.html')
 
+
 """
 # Update user
 @app.route('/update_user', methods=["POST"])
@@ -107,6 +108,8 @@ def delete_user(user_id):
 """
 
 # Get Creatives
+
+
 @app.route('/get_creatives')
 def get_creatives():
     return render_template("creatives.html",
@@ -150,7 +153,7 @@ def update_creative(creative_id):
                      {
         'first_name': request.form.get('first_name'),
         'last_name': request.form.get('last_name'),
-        'email': request.form.get('email'),
+        #  'email': request.form.get('email'),
         'phone': request.form.get('phone'),
         'city': request.form.get('city'),
         'country': request.form.get('country'),
@@ -186,22 +189,26 @@ def contact_employer(brief_id):
 @app.route('/create_brief')
 def create_brief():
     user = mongo.db.users.find_one({'email': session['email']})
-    return render_template('createBrief.html', user=user)
+    skills = mongo.db.skills.find()
+    return render_template('createBrief.html', user=user, skills=skills)
 
 
 # Insert brief
 @app.route('/insert_brief', methods=['POST'])
 def insert_brief():
     briefs = mongo.db.briefs
-    briefs.insert_one(request.form.to_dict())
-    return redirect(url_for('user_interface'))
+    form_data = request.form.to_dict()
+    form_data['email'] = session['email']
+    briefs.insert_one(form_data)
+    return redirect(url_for('user_interface',))
 
 
 # Edit brief
 @app.route('/edit_brief/<brief_id>')
 def edit_brief(brief_id):
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
-    return render_template('editBrief.html', brief=the_brief)
+    skills = mongo.db.skills.find()
+    return render_template('editBrief.html', brief=the_brief, skills=skills)
 
 
 # Update brief
@@ -209,10 +216,10 @@ def edit_brief(brief_id):
 def update_brief(brief_id):
     briefs = mongo.db.briefs
     briefs.update({'_id': ObjectId(brief_id)},
-                     {
+                  {
         'first_name': request.form.get('first_name'),
         'last_name': request.form.get('last_name'),
-        'email': request.form.get('email'),
+        'email': session['email'],
         'city': request.form.get('city'),
         'country': request.form.get('country'),
         'company_name': request.form.get('company_name'),
@@ -220,11 +227,11 @@ def update_brief(brief_id):
         'hours': request.form.get('hours'),
         'duration': request.form.get('duration'),
         'required_skills': request.form.get('required_skills'),
-        'preferred_skills': request.form.get('preferred_skills'),
         'budget': request.form.get('budget'),
+        'project_start': request.form.get('project_start'),
         'description': request.form.get('description')
     })
-    return redirect(url_for('get_briefs'))
+    return redirect(url_for('user_interface'))
 
 
 # Delete brief

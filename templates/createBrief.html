@@ -41,23 +41,6 @@
         <label for="last_name">Last name</label>
       </div>
 
-      <!-- E-mail -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">email</i>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          class="validate"
-          value="{{user.email}}"
-          maxlength="30"
-          required
-          readonly
-        />
-        <label for="email">E-mail</label>
-      </div>
-
       <!-- City -->
 
       <div class="input-field col s12">
@@ -125,7 +108,7 @@
       <div class="input-field col s12">
         <i class="material-icons prefix">hourglass_full</i>
         <select id="hours" name="hours" required>
-          <option value="" disabled selected>Choose your option</option>
+          <option value="" disabled selected>Set estimated hours needed</option>
           <option value="less than 40 hours">Less than 40 hours</option>
           <option value="more than 40 hours">More than 40 hours</option>
           <option value="more than 160 hours">More than 160 hours</option>
@@ -137,7 +120,12 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">hourglass_full</i>
-        <input id="duration" name="duration" type="text" class="validate" />
+        <select id="duration" name="duration" required>
+          <option value="" disabled selected>Set estimated project duration</option>
+          <option value="less than 3 months">Less than 3 months</option>
+          <option value="more than 3 months">More than 3 months</option>
+          <option value="more than 6 months">More than 6 months</option>
+        </select>
         <label for="duration">Duration</label>
       </div>
 
@@ -145,33 +133,25 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">star</i>
-        <input
-          id="required_skills"
-          name="required_skills"
-          type="text"
-          class="validate"
-        />
-        <label for="required_skills">Required skills</label>
-      </div>
-
-      <!-- Preferred skills -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">star</i>
-        <input
-          id="preferred_skills"
-          name="preferred_skills"
-          type="text"
-          class="validate"
-        />
-        <label for="preferred_skills">Preferred skills</label>
+        <select id="required_skills" name="required_skills" required>
+          <option value="" disabled selected>Choose a required skill</option>
+          {% for skill in skills %}
+          <option value="{{skill.skill_name}}">{{skill.skill_name}}</option>
+          {% endfor %}
+        </select>
+        <label for="required_skills">Required Skill</label>
       </div>
 
       <!-- Budget -->
 
       <div class="input-field col s12">
         <i class="material-icons prefix">attach_money</i>
-        <input id="budget" name="budget" type="text" class="validate" />
+        <select id="budget" name="budget" required>
+          <option value="" disabled selected>Set estimated budget</option>
+          <option value="less than 50 000 SEK">less than 50 000 SEK</option>
+          <option value="more than 50 000 SEK">More than 50 000 SEK</option>
+          <option value="more than 200 000 SEK">More than 200 000 SEK</option>
+        </select>
         <label for="budget">Budget</label>
       </div>
 
@@ -183,7 +163,8 @@
           id="project_start"
           name="project_start"
           type="text"
-          class="validate"
+          class="datepicker"
+          required
         />
         <label for="project_start">Project start</label>
       </div>
