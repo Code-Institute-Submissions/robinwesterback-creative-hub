@@ -1,9 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 
-<h3>Edit Creative Account</h3>
+<h3>Edit Creative Ad</h3>
 <div class="row">
   <form action="{{ url_for('update_creative', creative_id=creative._id) }}" method="POST" class="col s12">
     <div class="row">
+      <!-- First name -->
+
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
         <input
@@ -12,9 +14,14 @@
           type="text"
           class="validate"
           value="{{creative.first_name}}"
+          maxlength="30"
+          required
         />
-        <label for="first_name">First Name</label>
+        <label for="first_name">First name</label>
       </div>
+
+      <!-- Last name -->
+
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
         <input
@@ -23,87 +30,88 @@
           type="text"
           class="validate"
           value="{{creative.last_name}}"
+          maxlength="30"
+          required
         />
-        <label for="last_name">Last Name</label>
+        <label for="last_name">Last name</label>
       </div>
+
+      <!-- City -->
+
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          class="validate"
-          value="{{creative.email}}"
-        />
-        <label for="email">E-mail</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="material-icons prefix">phone</i>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          class="validate"
-          value="{{creative.phone}}"
-        />
-        <label for="phone">Telephone</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
+        <i class="material-icons prefix">location_on</i>
         <input
           id="city"
           name="city"
           type="text"
           class="validate"
           value="{{creative.city}}"
+          maxlength="30"
+          required
         />
         <label for="city">City</label>
       </div>
+
+      <!-- Country -->
+
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
+        <i class="material-icons prefix">location_on</i>
         <input
           id="country"
           name="country"
           type="text"
           class="validate"
           value="{{creative.country}}"
+          maxlength="30"
+          required
         />
         <label for="country">Country</label>
       </div>
+
+      <!-- Skills -->
+
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input
-          id="skills"
-          name="skills"
-          type="text"
-          class="validate"
-          value="{{creative.skills}}"
-        />
-        <label for="skills">Skills</label>
+        <i class="material-icons prefix">star</i>
+        <select id="skills" name="skills" required>
+          <option value="{{creative.skills}}" selected>{{creative.skills}}</option>
+          {% for skill in skills %}
+          <option value="{{skill.skill_name}}">{{skill.skill_name}}</option>
+          {% endfor %}
+        </select>
+        <label for="skills">Skill</label>
       </div>
+
+      <!-- Hourly rate -->
+
       <div class="input-field col s12">
-        <i class="material-icons prefix">account_circle</i>
-        <input
-          id="hourly_rate"
-          name="hourly_rate"
-          type="text"
-          class="validate"
-          value="{{creative.hourly_rate}}"
-        />
+        <i class="material-icons prefix">attach_money</i>
+        <select id="hourly_rate" name="hourly_rate" required>
+          <option value="{{creative.hourly_rate}}" selected>{{creative.hourly_rate}}</option>
+          <option value="less than 1 000 SEK/h">Less than 1 000 SEK/h</option>
+          <option value="more than 1 000 SEK/h">More than 1 000 SEK/h</option>
+          <option value="more than 1 500 SEK/h">More than 1 500 SEK/h</option>
+        </select>
         <label for="hourly_rate">Hourly rate</label>
       </div>
+
+      <!-- Description -->
+
       <div class="input-field col s12">
-        <i class="material-icons prefix">subject</i>
+        <i class="material-icons prefix">description</i>
         <textarea
           id="description"
           name="description"
           class="materialize-textarea"
-        >
-{{creative.description}}</textarea
-        >
+          minlength="30"
+          maxlength="150"
+          required
+        >{{creative.description}}</textarea>
         <label for="description">Description</label>
       </div>
     </div>
+
+    <!-- Submit button -->
+
     <div class="row">
       <button class="btn waves-effect waves-light" type="submit" name="action">
         Update Account

@@ -18,6 +18,8 @@
           type="text"
           class="validate"
           value="{{brief.first_name}}"
+          maxlength="30"
+          required
         />
         <label for="first_name">First name</label>
       </div>
@@ -32,6 +34,8 @@
           type="text"
           class="validate"
           value="{{brief.last_name}}"
+          maxlength="30"
+          required
         />
         <label for="last_name">Last name</label>
       </div>
@@ -46,6 +50,8 @@
           type="text"
           class="validate"
           value="{{brief.city}}"
+          maxlength="30"
+          required
         />
         <label for="city">City</label>
       </div>
@@ -60,6 +66,8 @@
           type="text"
           class="validate"
           value="{{brief.country}}"
+          maxlength="30"
+          required
         />
         <label for="country">Country</label>
       </div>
@@ -74,6 +82,8 @@
           type="text"
           class="validate"
           value="{{brief.company_name}}"
+          maxlength="30"
+          required
         />
         <label for="company_name">Company name</label>
       </div>
@@ -88,6 +98,8 @@
           type="text"
           class="validate"
           value="{{brief.title}}"
+          maxlength="30"
+          required
         />
         <label for="title">Title</label>
       </div>
@@ -97,9 +109,7 @@
       <div class="input-field col s12">
         <i class="material-icons prefix">hourglass_full</i>
         <select id="hours" name="hours" required>
-          <option value="{{brief.hours}}" selected
-            >{{brief.hours}}</option
-          >
+          <option value="{{brief.hours}}" selected>{{brief.hours}}</option>
           <option value="less than 40 hours">Less than 40 hours</option>
           <option value="more than 40 hours">More than 40 hours</option>
           <option value="more than 160 hours">More than 160 hours</option>
@@ -142,9 +152,7 @@
       <div class="input-field col s12">
         <i class="material-icons prefix">attach_money</i>
         <select id="budget" name="budget" required>
-          <option value="{{brief.budget}}" selected
-            >{{brief.budget}}</option
-          >
+          <option value="{{brief.budget}}" selected>{{brief.budget}}</option>
           <option value="less than 50 000 SEK">less than 50 000 SEK</option>
           <option value="more than 50 000 SEK">More than 50 000 SEK</option>
           <option value="more than 200 000 SEK">More than 200 000 SEK</option>
@@ -175,6 +183,9 @@
           id="description"
           name="description"
           class="materialize-textarea"
+          minlength="30"
+          maxlength="150"
+          required
         >
 {{brief.description}}</textarea
         >

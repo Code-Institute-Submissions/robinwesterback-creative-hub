@@ -127,14 +127,17 @@ def contact_creative(creative_id):
 @app.route('/create_creative')
 def create_creative():
     user = mongo.db.users.find_one({'email': session['email']})
-    return render_template('createCreative.html', user=user)
+    skills = mongo.db.skills.find()
+    return render_template('createCreative.html', user=user, skills=skills)
 
 
 # Insert creative
 @app.route('/insert_creative', methods=['POST'])
 def insert_creative():
     creatives = mongo.db.creatives
-    creatives.insert_one(request.form.to_dict())
+    form_data = request.form.to_dict()
+    form_data['email'] = session['email']
+    creatives.insert_one(form_data)
     return redirect(url_for('user_interface'))
 
 
@@ -142,7 +145,8 @@ def insert_creative():
 @app.route('/edit_user/<creative_id>')
 def edit_creative(creative_id):
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
-    return render_template('editCreative.html', creative=the_creative)
+    skills = mongo.db.skills.find()
+    return render_template('editCreative.html', creative=the_creative, skills=skills)
 
 
 # Update creative
@@ -153,22 +157,21 @@ def update_creative(creative_id):
                      {
         'first_name': request.form.get('first_name'),
         'last_name': request.form.get('last_name'),
-        #  'email': request.form.get('email'),
-        'phone': request.form.get('phone'),
+        'email': session['email'],
         'city': request.form.get('city'),
         'country': request.form.get('country'),
         'skills': request.form.get('skills'),
         'hourly_rate': request.form.get('hourly_rate'),
         'description': request.form.get('description')
     })
-    return redirect(url_for('get_creatives'))
+    return redirect(url_for('user_interface'))
 
 
 # Delete creative
 @app.route('/delete_creative/<creative_id>')
 def delete_creative(creative_id):
     mongo.db.creatives.remove({'_id': ObjectId(creative_id)})
-    return redirect(url_for('get_creatives'))
+    return redirect(url_for('user_interface'))
 
 
 # Get briefs
@@ -238,7 +241,7 @@ def update_brief(brief_id):
 @app.route('/delete_brief/<brief_id>')
 def delete_brief(brief_id):
     mongo.db.briefs.remove({'_id': ObjectId(brief_id)})
-    return redirect(url_for('get_briefs'))
+    return redirect(url_for('user_interface'))
 
 
 if __name__ == '__main__':
