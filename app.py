@@ -156,22 +156,22 @@ def validate_form(form, collection):
                 .format(max_title)
             )
 
-        if not form['hours']:
+        if request.form.get('hours') is None:
             error_list.append(
                 'Hours needed must not be empty!'
             )
 
-        if not form['duration']:
+        if request.form.get('duration') is None:
             error_list.append(
                 'Duration must not be empty!'
             )
 
-        if not form['required_skills']:
+        if request.form.get('required_skills') is None:
             error_list.append(
                 'Required skills must not be empty!'
             )
 
-        if not form['budget']:
+        if request.form.get('budget') is None:
             error_list.append(
                 'Budget must not be empty!'
             )
@@ -415,7 +415,7 @@ def insert_brief():
 
         if error_list == []:
             briefs.insert_one(form_data)
-            return redirect(url_for('user_interface',))
+            return redirect(url_for('user_interface'))
 
     return render_template('createBrief.html', user=user, skills=skills, errors=error_list)
 
@@ -432,23 +432,24 @@ def edit_brief(brief_id):
 @app.route('/update_brief/<brief_id>', methods=["POST"])
 def update_brief(brief_id):
     briefs = mongo.db.briefs
-    briefs.update_one({'_id': ObjectId(brief_id)},
+    briefs.update_one({'_id': ObjectId(creative_id)},
                       {'$set':
-                       {
-                           'first_name': request.form.get('first_name'),
-                           'last_name': request.form.get('last_name'),
-                           'email': session['email'],
-                           'city': request.form.get('city'),
-                           'country': request.form.get('country'),
-                           'company_name': request.form.get('company_name'),
-                           'title': request.form.get('title'),
-                           'hours': request.form.get('hours'),
-                           'duration': request.form.get('duration'),
-                           'required_skills': request.form.get('required_skills'),
-                           'budget': request.form.get('budget'),
-                           'project_start': request.form.get('project_start'),
-                           'description': request.form.get('description')
-                       }
+                          {
+                              'email': session['email'],
+                              'email': session['email'],
+                              'first_name': request.form.get('first_name'),
+                              'last_name': request.form.get('last_name'),
+                              'city': request.form.get('city'),
+                              'country': request.form.get('country'),
+                              'company_name': request.form.get('company_name'),
+                              'title': request.form.get('title'),
+                              'hours': request.form.get('hours'),
+                              'duration': request.form.get('duration'),
+                              'required_skills': request.form.get('required_skills'),
+                              'budget': request.form.get('budget'),
+                              'project_start': request.form.get('project_start'),
+                              'description': request.form.get('description')
+                          }
                        })
     return redirect(url_for('user_interface'))
 
