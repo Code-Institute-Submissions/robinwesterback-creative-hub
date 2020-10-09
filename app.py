@@ -19,7 +19,7 @@ mongo = PyMongo(app)
 
 
 def validate_form(form, collection):
-    """ Returns an error list if the user, brief or
+    """ Returns an error list if the user, login, brief or
     creative ad forms fails on validation
     """
 
@@ -89,6 +89,30 @@ def validate_form(form, collection):
                 .format(min_password)
             )
 
+    # validates login form
+    elif collection == 'login':
+        if not form['email'] or len(form['email']) > max_email:
+            error_list.append(
+                'E-mail must not be empty or more than {} characters!'
+                .format(max_email)
+            )
+
+        if not form['password']:
+            error_list.append(
+                'Password must not be empty!'
+            )
+
+        if len(form['password']) > max_password:
+            error_list.append(
+                'Password must not be more than {} characters!'
+                .format(max_password)
+            )
+
+        if len(form['password']) < min_password:
+            error_list.append(
+                'Password must not be less than {} characters!'
+                .format(min_password)
+            )
 
     # returns errors on an empty list
     return error_list
@@ -149,17 +173,34 @@ def user_interface():
 
 
 # Login
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    users = mongo.db.users
-    login_user = users.find_one({'email': request.form['email']})
+    if request.method == 'POST':
+        user = mongo.db.users
+        login_user = user.find_one({'email': request.form['email']})
+        form = request.form
+        error_list = validate_form(form, 'login')
 
-    if login_user:
-        if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
-            session['email'] = request.form['email']
-            return redirect(url_for('user_interface'))
+        if error_list == []:
 
-    return render_template('errorLogin.html')
+            if login_user:
+                if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
+                    session['email'] = request.form['email']
+                    return redirect(url_for('user_interface'))
+
+            error_list.append(
+                'Invalid email/password combination.'
+            )
+
+            return render_template('login.html', errors=error_list)
+
+        error_list.append(
+            'Invalid email/password combination.'
+        )
+
+        return render_template('login.html', errors=error_list)
+
+    return render_template('login.html')
 
 
 # Logout

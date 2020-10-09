@@ -1,40 +1,64 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <form method="POST" action="{{ url_for('login') }}">
-        <div class="form-group">
-          <label for="exampleInputEmail">Email</label>
-          <input
-            type="text"
-            class="form-control"
-            name="email"
-            placeholder="E-mail"
-            maxlength="40"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            placeholder="Password"
-            minlength="8"
-            maxlength="30"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Log In</button>
-      </form>
-      <br />
-      <div>
-        Dont have an account?
-        <a href="{{ url_for('register') }}">Sign up</a> here.
+<div class="row">
+  <!-- Errors -->
+
+  {% if errors %}
+
+  <div class="error-container">
+    <ul>
+      {% for error in errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('login') }}" class="col s12">
+    <h2>Login details</h2>
+    <div class="row">
+      <!-- E-mail -->
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">email</i>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="validate"
+          name="email"
+          placeholder="E-mail"
+          maxlength="40"
+          required
+        />
       </div>
     </div>
+
+    <!-- Password -->
+
+    <div class="input-field col s12">
+      <i class="material-icons prefix">security</i>
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="validate"
+        name="password"
+        placeholder="Password"
+        minlength="8"
+        maxlength="30"
+        required
+      />
+    </div>
+
+    <!-- Submit button -->
+
+    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+  </form>
+  <br />
+  <div>
+    Dont have an account?
+    <a href="{{ url_for('register') }}">Sign up</a> here.
   </div>
 </div>
 
