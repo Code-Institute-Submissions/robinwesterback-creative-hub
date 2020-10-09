@@ -24,40 +24,6 @@ def home():
     return render_template('index.html', page_title='Home')
 
 
-# User Interface
-@app.route('/user_interface')
-def user_interface():
-    if 'email' in session:
-        user = mongo.db.users.find_one({'email': session['email']})
-        briefs = mongo.db.briefs.find({'email': session['email']})
-        creatives = mongo.db.creatives.find({'email': session['email']})
-        return render_template('userInterface.html', user=user, briefs=briefs, creatives=creatives, page_title='User Interface')
-
-    return render_template('login.html', page_title='Login')
-
-
-# Login
-@app.route('/login', methods=['POST'])
-def login():
-    users = mongo.db.users
-    login_user = users.find_one({'email': request.form['email']})
-
-    if login_user:
-        if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
-            session['email'] = request.form['email']
-            return redirect(url_for('user_interface'))
-
-    return 'Invalid email/password combination'
-
-
-# Logout
-@app.route('/logout')
-def logout():
-    session.clear()
-
-    return render_template('index.html', page_title='Home')
-
-
 # Register
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -84,9 +50,58 @@ def register():
     return render_template('register.html')
 
 
+# User Interface
+@app.route('/user_interface')
+def user_interface():
+    if 'email' in session:
+        user = mongo.db.users.find_one({'email': session['email']})
+        briefs = mongo.db.briefs.find({'email': session['email']})
+        creatives = mongo.db.creatives.find({'email': session['email']})
+        return render_template('userInterface.html', user=user, briefs=briefs, creatives=creatives, page_title='User Interface')
+
+    return render_template('login.html', page_title='Login')
+
+
+# Login
+@app.route('/login', methods=['POST'])
+def login():
+    users = mongo.db.users
+    login_user = users.find_one({'email': request.form['email']})
+
+    if login_user:
+        if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
+            session['email'] = request.form['email']
+            return redirect(url_for('user_interface'))
+
+    return render_template('errorLogin.html')
+
+
+# Logout
+@app.route('/logout')
+def logout():
+    session.clear()
+
+    return render_template('index.html', page_title='Home')
+
+
+# Update user
+@app.route('/update_user', methods=["POST"])
+def update_user():
+    users = mongo.db.users
+    users.update_one({'email': session['email']},
+                     {'$set':
+                      {
+                          'first_name': request.form.get('first_name'),
+                          'last_name': request.form.get('last_name'),
+                          'phone': request.form.get('phone'),
+                          'city': request.form.get('city'),
+                          'country': request.form.get('country')
+                      }
+                      })
+    return redirect(url_for('user_interface'))
+
+
 # Get Creatives
-
-
 @app.route('/get_creatives')
 def get_creatives():
     return render_template("creatives.html",
@@ -130,17 +145,19 @@ def edit_creative(creative_id):
 @app.route('/update_creative/<creative_id>', methods=["POST"])
 def update_creative(creative_id):
     creatives = mongo.db.creatives
-    creatives.update({'_id': ObjectId(creative_id)},
-                     {
-        'first_name': request.form.get('first_name'),
-        'last_name': request.form.get('last_name'),
-        'email': session['email'],
-        'city': request.form.get('city'),
-        'country': request.form.get('country'),
-        'skills': request.form.get('skills'),
-        'hourly_rate': request.form.get('hourly_rate'),
-        'description': request.form.get('description')
-    })
+    creatives.update_one({'_id': ObjectId(creative_id)},
+                         {'$set':
+                          {
+                              'first_name': request.form.get('first_name'),
+                              'last_name': request.form.get('last_name'),
+                              'email': session['email'],
+                              'city': request.form.get('city'),
+                              'country': request.form.get('country'),
+                              'skills': request.form.get('skills'),
+                              'hourly_rate': request.form.get('hourly_rate'),
+                              'description': request.form.get('description')
+                          }
+                          })
     return redirect(url_for('user_interface'))
 
 
@@ -195,22 +212,24 @@ def edit_brief(brief_id):
 @app.route('/update_brief/<brief_id>', methods=["POST"])
 def update_brief(brief_id):
     briefs = mongo.db.briefs
-    briefs.update({'_id': ObjectId(brief_id)},
-                  {
-        'first_name': request.form.get('first_name'),
-        'last_name': request.form.get('last_name'),
-        'email': session['email'],
-        'city': request.form.get('city'),
-        'country': request.form.get('country'),
-        'company_name': request.form.get('company_name'),
-        'title': request.form.get('title'),
-        'hours': request.form.get('hours'),
-        'duration': request.form.get('duration'),
-        'required_skills': request.form.get('required_skills'),
-        'budget': request.form.get('budget'),
-        'project_start': request.form.get('project_start'),
-        'description': request.form.get('description')
-    })
+    briefs.update_one({'_id': ObjectId(brief_id)},
+                      {'$set':
+                       {
+                           'first_name': request.form.get('first_name'),
+                           'last_name': request.form.get('last_name'),
+                           'email': session['email'],
+                           'city': request.form.get('city'),
+                           'country': request.form.get('country'),
+                           'company_name': request.form.get('company_name'),
+                           'title': request.form.get('title'),
+                           'hours': request.form.get('hours'),
+                           'duration': request.form.get('duration'),
+                           'required_skills': request.form.get('required_skills'),
+                           'budget': request.form.get('budget'),
+                           'project_start': request.form.get('project_start'),
+                           'description': request.form.get('description')
+                       }
+                       })
     return redirect(url_for('user_interface'))
 
 

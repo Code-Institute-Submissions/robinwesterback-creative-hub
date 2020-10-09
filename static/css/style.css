@@ -34,3 +34,7 @@ footer i {
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+
+.capitalize {
+  text-transform: capitalize;
+}
