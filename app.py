@@ -32,16 +32,63 @@ def validate_form(form, collection):
     max_country = 30
     min_password = 8
     max_password = 30
-    email_registered = 'The email you want to register is already registered.'
     error_list = []
 
-    # validates recipe form
+    # validates users form
     if collection == 'users':
         if not form['first_name'] or len(form['first_name']) > max_first_name:
             error_list.append(
                 'First name must not be empty or more than {} characters!'
                 .format(max_first_name)
             )
+
+        if not form['last_name'] or len(form['last_name']) > max_last_name:
+            error_list.append(
+                'Last name must not be empty or more than {} characters!'
+                .format(max_last_name)
+            )
+
+        if not form['email'] or len(form['email']) > max_email:
+            error_list.append(
+                'E-mail must not be empty or more than {} characters!'
+                .format(max_email)
+            )
+
+        if len(form['phone']) > max_phone:
+            error_list.append(
+                'Phone cannot contain more than {} characters!'
+                .format(max_phone)
+            )
+
+        if not form['city'] or len(form['city']) > max_city:
+            error_list.append(
+                'City must not be empty or more than {} characters!'
+                .format(max_city)
+            )
+
+        if not form['country'] or len(form['country']) > max_country:
+            error_list.append(
+                'Country must not be empty or more than {} characters!'
+                .format(max_country)
+            )
+
+        if not form['password']:
+            error_list.append(
+                'Password must not be empty!'
+            )
+
+        if len(form['password']) > max_password:
+            error_list.append(
+                'Password must not be more than {} characters!'
+                .format(max_password)
+            )
+
+        if len(form['password']) < min_password:
+            error_list.append(
+                'Password must not be less than {} characters!'
+                .format(min_password)
+            )
+
 
     # returns errors on an empty list
     return error_list
