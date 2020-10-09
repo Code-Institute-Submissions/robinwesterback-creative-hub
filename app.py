@@ -18,6 +18,35 @@ app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 mongo = PyMongo(app)
 
 
+def validate_form(form, collection):
+    """ Returns an error list if the user, brief or
+    creative ad forms fails on validation
+    """
+
+    # variable initialization
+    max_first_name = 30
+    max_last_name = 30
+    max_email = 40
+    max_phone = 30
+    max_city = 30
+    max_country = 30
+    min_password = 8
+    max_password = 30
+    email_registered = 'The email you want to register is already registered.'
+    error_list = []
+
+    # validates recipe form
+    if collection == 'users':
+        if not form['first_name'] or len(form['first_name']) > max_first_name:
+            error_list.append(
+                'First name must not be empty or more than {} characters!'
+                .format(max_first_name)
+            )
+
+    # returns errors on an empty list
+    return error_list
+
+
 # Index
 @app.route('/')
 def home():
@@ -30,22 +59,32 @@ def register():
     if request.method == 'POST':
         users = mongo.db.users
         existing_user = users.find_one({'email': request.form['email']})
+        form = request.form
+        error_list = validate_form(form, 'users')
 
-        if existing_user is None:
-            hashpass = bcrypt.hashpw(
-                request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert({'email': request.form['email'],
-                          'first_name': request.form.get('first_name'),
-                          'last_name': request.form.get('last_name'),
-                          'email': request.form.get('email'),
-                          'phone': request.form.get('phone'),
-                          'city': request.form.get('city'),
-                          'country': request.form.get('country'),
-                          'password': hashpass})
-            session['email'] = request.form['email']
-            return redirect(url_for('user_interface'))
+        if error_list == []:
 
-        return render_template('errorRegister.html')
+            if existing_user is None:
+                hashpass = bcrypt.hashpw(
+                    request.form['password'].encode('utf-8'), bcrypt.gensalt())
+                users.insert({'email': request.form['email'],
+                              'first_name': request.form.get('first_name'),
+                              'last_name': request.form.get('last_name'),
+                              'email': request.form.get('email'),
+                              'phone': request.form.get('phone'),
+                              'city': request.form.get('city'),
+                              'country': request.form.get('country'),
+                              'password': hashpass})
+                session['email'] = request.form['email']
+                return redirect(url_for('user_interface'))
+
+            error_list.append(
+                'The email you want to register is already registered.'
+            )
+
+            return render_template('register.html', errors=error_list)
+
+        return render_template('register.html', errors=error_list)
 
     return render_template('register.html')
 

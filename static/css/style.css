@@ -7,7 +7,7 @@ body {
 }
 
 header ul a {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 }
 
 h1 {
@@ -24,7 +24,7 @@ h1 {
 } */
 
 footer i {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
 .rotate {
@@ -37,4 +37,15 @@ footer i {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+/* ---------------------------- error section */
+
+.error-container {
+  padding: 1rem;
+    box-sizing: border-box;
+    border: 1px solid rgba(238,110,115, 0.8);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin-top: 1rem;
 }

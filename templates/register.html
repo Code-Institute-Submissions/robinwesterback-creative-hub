@@ -5,6 +5,19 @@
 <!-- User info -->
 
 <div class="row">
+  <!-- Errors -->
+
+  {% if errors %}
+
+  <div class="error-container">
+    <ul>
+      {% for error in errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <h1>Create User Account</h1>
   <form action="{{ url_for('register') }}" method="POST" class="col s12">
     <h2>User details</h2>
