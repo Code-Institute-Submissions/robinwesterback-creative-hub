@@ -23,7 +23,7 @@ def validate_form(form, collection):
     creative ad forms fails on validation
     """
 
-    # variable initialization
+    # Variable initialization
     max_first_name = 30
     max_last_name = 30
     max_email = 40
@@ -32,6 +32,10 @@ def validate_form(form, collection):
     max_country = 30
     min_password = 8
     max_password = 30
+    max_company_name = 30
+    max_title = 30
+    min_description = 30
+    max_description = 150
     error_list = []
 
     # validates users form
@@ -112,6 +116,86 @@ def validate_form(form, collection):
             error_list.append(
                 'Password must not be less than {} characters!'
                 .format(min_password)
+            )
+
+    # validates brief form
+    elif collection == 'briefs':
+        if not form['first_name'] or len(form['first_name']) > max_first_name:
+            error_list.append(
+                'First name must not be empty or more than {} characters!'
+                .format(max_first_name)
+            )
+
+        if not form['last_name'] or len(form['last_name']) > max_last_name:
+            error_list.append(
+                'Last name must not be empty or more than {} characters!'
+                .format(max_last_name)
+            )
+
+        if not form['city'] or len(form['city']) > max_city:
+            error_list.append(
+                'City must not be empty or more than {} characters!'
+                .format(max_city)
+            )
+
+        if not form['country'] or len(form['country']) > max_country:
+            error_list.append(
+                'Country must not be empty or more than {} characters!'
+                .format(max_country)
+            )
+
+        if not form['company_name'] or len(form['company_name']) > max_company_name:
+            error_list.append(
+                'Company name must not be empty or more than {} characters!'
+                .format(max_company_name)
+            )
+
+        if not form['title'] or len(form['title']) > max_title:
+            error_list.append(
+                'Title must not be empty or more than {} characters!'
+                .format(max_title)
+            )
+
+        if not form['hours']:
+            error_list.append(
+                'Hours needed must not be empty!'
+            )
+
+        if not form['duration']:
+            error_list.append(
+                'Duration must not be empty!'
+            )
+
+        if not form['required_skills']:
+            error_list.append(
+                'Required skills must not be empty!'
+            )
+
+        if not form['budget']:
+            error_list.append(
+                'Budget must not be empty!'
+            )
+
+        if not form['project_start']:
+            error_list.append(
+                'Project start must not be empty!'
+            )
+
+        if not form['description']:
+            error_list.append(
+                'Description must not be empty!'
+            )
+
+        if len(form['description']) > max_description:
+            error_list.append(
+                'Description must not be more than {} characters!'
+                .format(max_description)
+            )
+
+        if len(form['description']) < min_description:
+            error_list.append(
+                'Description must not be less than {} characters!'
+                .format(min_description)
             )
 
     # returns errors on an empty list
@@ -318,13 +402,22 @@ def create_brief():
 
 
 # Insert brief
-@app.route('/insert_brief', methods=['POST'])
+@app.route('/insert_brief', methods=['POST', 'GET'])
 def insert_brief():
-    briefs = mongo.db.briefs
-    form_data = request.form.to_dict()
-    form_data['email'] = session['email']
-    briefs.insert_one(form_data)
-    return redirect(url_for('user_interface',))
+    if request.method == 'POST':
+        user = mongo.db.users.find_one({'email': session['email']})
+        skills = mongo.db.skills.find()
+        briefs = mongo.db.briefs
+        form_data = request.form.to_dict()
+        form_data['email'] = session['email']
+        form = request.form
+        error_list = validate_form(form, 'briefs')
+
+        if error_list == []:
+            briefs.insert_one(form_data)
+            return redirect(url_for('user_interface',))
+
+    return render_template('createBrief.html', user=user, skills=skills, errors=error_list)
 
 
 # Edit brief
