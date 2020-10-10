@@ -417,7 +417,8 @@ def insert_brief():
             briefs.insert_one(form_data)
             return redirect(url_for('user_interface'))
 
-    return render_template('createBrief.html', user=user, skills=skills, errors=error_list)
+    return render_template('createBrief.html',
+                           user=user, skills=skills, errors=error_list)
 
 
 # Edit brief
@@ -429,29 +430,38 @@ def edit_brief(brief_id):
 
 
 # Update brief
-@app.route('/update_brief/<brief_id>', methods=["POST"])
+@app.route('/update_brief/<brief_id>', methods=['POST', 'GET'])
 def update_brief(brief_id):
+    the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
     briefs = mongo.db.briefs
-    briefs.update_one({'_id': ObjectId(creative_id)},
-                      {'$set':
-                          {
-                              'email': session['email'],
-                              'email': session['email'],
-                              'first_name': request.form.get('first_name'),
-                              'last_name': request.form.get('last_name'),
-                              'city': request.form.get('city'),
-                              'country': request.form.get('country'),
-                              'company_name': request.form.get('company_name'),
-                              'title': request.form.get('title'),
-                              'hours': request.form.get('hours'),
-                              'duration': request.form.get('duration'),
-                              'required_skills': request.form.get('required_skills'),
-                              'budget': request.form.get('budget'),
-                              'project_start': request.form.get('project_start'),
-                              'description': request.form.get('description')
-                          }
-                       })
-    return redirect(url_for('user_interface'))
+    skills = mongo.db.skills.find()
+    form = request.form
+    error_list = validate_form(form, 'briefs')
+
+    if error_list == []:
+        briefs.update_one({'_id': ObjectId(brief_id)},
+                        {'$set':
+                            {
+                                'email': session['email'],
+                                'email': session['email'],
+                                'first_name': request.form.get('first_name'),
+                                'last_name': request.form.get('last_name'),
+                                'city': request.form.get('city'),
+                                'country': request.form.get('country'),
+                                'company_name': request.form.get('company_name'),
+                                'title': request.form.get('title'),
+                                'hours': request.form.get('hours'),
+                                'duration': request.form.get('duration'),
+                                'required_skills': request.form.get('required_skills'),
+                                'budget': request.form.get('budget'),
+                                'project_start': request.form.get('project_start'),
+                                'description': request.form.get('description')
+                            }
+                        })
+        return redirect(url_for('user_interface'))
+
+    return render_template('editBrief.html',
+                           brief=the_brief, skills=skills, errors=error_list)
 
 
 # Delete brief

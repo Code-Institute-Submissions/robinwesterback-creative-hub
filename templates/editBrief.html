@@ -2,6 +2,19 @@
 
 <h3>Edit Brief</h3>
 <div class="row">
+  <!-- Errors -->
+
+  {% if errors %}
+
+  <div class="error-container">
+    <ul>
+      {% for error in errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <form
     action="{{ url_for('update_brief', brief_id=brief._id) }}"
     method="POST"
