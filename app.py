@@ -373,7 +373,7 @@ def get_creatives():
 
 
 # Contact creative
-@app.route('/contact_creative/<creative_id>')
+@app.route('/contact_creative/<creative_id>', methods=['POST', 'GET'])
 def contact_creative(creative_id):
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
     return render_template('contactCreative.html', creative=the_creative)

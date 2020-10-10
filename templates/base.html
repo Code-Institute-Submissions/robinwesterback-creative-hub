@@ -18,6 +18,15 @@
       href="{{url_for('static', filename='css/style.css')}}"
       type="text/css"
     />
+    <script
+      type="text/javascript"
+      src="https://cdn.emailjs.com/sdk/2.2.4/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("user_Txaw7fq4E3HUJKaPGauXW");
+      })();
+    </script>
     <title>Document</title>
   </head>
 
@@ -140,6 +149,11 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+    ></script>
+    <script type="text/javascript" src="../static/js/sendEmail.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
         $(".collapsible").collapsible(),
