@@ -38,7 +38,7 @@ def validate_form(form, collection):
     max_description = 150
     error_list = []
 
-    # validates users form
+    # Validates users form
     if collection == 'users':
         if not form['first_name'] or len(form['first_name']) > max_first_name:
             error_list.append(
@@ -93,7 +93,7 @@ def validate_form(form, collection):
                 .format(min_password)
             )
 
-    # validates login form
+    # Validates login form
     elif collection == 'login':
         if not form['email'] or len(form['email']) > max_email:
             error_list.append(
@@ -118,7 +118,7 @@ def validate_form(form, collection):
                 .format(min_password)
             )
 
-    # validates brief form
+    # Validates brief form
     elif collection == 'briefs':
         if not form['first_name'] or len(form['first_name']) > max_first_name:
             error_list.append(
@@ -179,6 +179,59 @@ def validate_form(form, collection):
         if not form['project_start']:
             error_list.append(
                 'Project start must not be empty!'
+            )
+
+        if not form['description']:
+            error_list.append(
+                'Description must not be empty!'
+            )
+
+        if len(form['description']) > max_description:
+            error_list.append(
+                'Description must not be more than {} characters!'
+                .format(max_description)
+            )
+
+        if len(form['description']) < min_description:
+            error_list.append(
+                'Description must not be less than {} characters!'
+                .format(min_description)
+            )
+
+    # Validates creatives form
+    elif collection == 'creatives':
+        if not form['first_name'] or len(form['first_name']) > max_first_name:
+            error_list.append(
+                'First name must not be empty or more than {} characters!'
+                .format(max_first_name)
+            )
+
+        if not form['last_name'] or len(form['last_name']) > max_last_name:
+            error_list.append(
+                'Last name must not be empty or more than {} characters!'
+                .format(max_last_name)
+            )
+
+        if not form['city'] or len(form['city']) > max_city:
+            error_list.append(
+                'City must not be empty or more than {} characters!'
+                .format(max_city)
+            )
+
+        if not form['country'] or len(form['country']) > max_country:
+            error_list.append(
+                'Country must not be empty or more than {} characters!'
+                .format(max_country)
+            )
+
+        if request.form.get('skills') is None:
+            error_list.append(
+                'Skill must not be empty!'
+            )
+
+        if request.form.get('hourly_rate') is None:
+            error_list.append(
+                'Hourly rate must not be empty!'
             )
 
         if not form['description']:
@@ -337,11 +390,21 @@ def create_creative():
 # Insert creative
 @app.route('/insert_creative', methods=['POST'])
 def insert_creative():
-    creatives = mongo.db.creatives
-    form_data = request.form.to_dict()
-    form_data['email'] = session['email']
-    creatives.insert_one(form_data)
-    return redirect(url_for('user_interface'))
+    if request.method == 'POST':
+        user = mongo.db.users.find_one({'email': session['email']})
+        skills = mongo.db.skills.find()
+        creatives = mongo.db.creatives
+        form_data = request.form.to_dict()
+        form_data['email'] = session['email']
+        form = request.form
+        error_list = validate_form(form, 'creatives')
+        
+        if error_list == []:
+            creatives.insert_one(form_data)
+            return redirect(url_for('user_interface'))
+
+    return render_template('createCreative.html',
+                           user=user, skills=skills, errors=error_list)
 
 
 # Edit creative
@@ -353,23 +416,32 @@ def edit_creative(creative_id):
 
 
 # Update creative
-@app.route('/update_creative/<creative_id>', methods=["POST"])
+@app.route('/update_creative/<creative_id>', methods=['POST', 'GET'])
 def update_creative(creative_id):
+    the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
     creatives = mongo.db.creatives
-    creatives.update_one({'_id': ObjectId(creative_id)},
-                         {'$set':
-                          {
-                              'first_name': request.form.get('first_name'),
-                              'last_name': request.form.get('last_name'),
-                              'email': session['email'],
-                              'city': request.form.get('city'),
-                              'country': request.form.get('country'),
-                              'skills': request.form.get('skills'),
-                              'hourly_rate': request.form.get('hourly_rate'),
-                              'description': request.form.get('description')
-                          }
-                          })
-    return redirect(url_for('user_interface'))
+    skills = mongo.db.skills.find()
+    form = request.form
+    error_list = validate_form(form, 'creatives')
+    
+    if error_list == []:
+        creatives.update_one({'_id': ObjectId(creative_id)},
+                            {'$set':
+                            {
+                                'first_name': request.form.get('first_name'),
+                                'last_name': request.form.get('last_name'),
+                                'email': session['email'],
+                                'city': request.form.get('city'),
+                                'country': request.form.get('country'),
+                                'skills': request.form.get('skills'),
+                                'hourly_rate': request.form.get('hourly_rate'),
+                                'description': request.form.get('description')
+                            }
+                            })
+        return redirect(url_for('user_interface'))
+
+    return render_template('editCreative.html',
+                           creative=the_creative, skills=skills, errors=error_list)
 
 
 # Delete creative
