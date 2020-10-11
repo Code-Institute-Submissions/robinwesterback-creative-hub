@@ -252,25 +252,36 @@ def validate_form(form, collection):
                 .format(min_description)
             )
 
-    # returns errors on an empty list
+    # Returns errors on an empty list
     return error_list
 
 
 # Index
 @app.route('/')
 def home():
+    """ Returns the landing page """
+
+    # Initializes page title
+    page_title = 'Home'
+
+    # Renders the landing page
     return render_template('index.html', page_title='Home')
 
 
 # Register
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+    """ Creates a user in the DB """
+
     if request.method == 'POST':
+        # Setting variables
         users = mongo.db.users
         existing_user = users.find_one({'email': request.form['email']})
         form = request.form
         error_list = validate_form(form, 'users')
+        page_title = 'Register'
 
+        # Creates a user after validating form
         if error_list == []:
 
             if existing_user is None:
@@ -285,40 +296,58 @@ def register():
                               'country': request.form.get('country'),
                               'password': hashpass})
                 session['email'] = request.form['email']
+
+                # Log in the new user
                 return redirect(url_for('user_interface'))
 
             error_list.append(
                 'The email you want to register is already registered.'
             )
 
-            return render_template('register.html', errors=error_list)
+            # Renders the register page with error list
+            return render_template('register.html', errors=error_list, page_title='Register')
 
-        return render_template('register.html', errors=error_list)
+        # Renders the register page with error list
+        return render_template('register.html', errors=error_list, page_title='Register')
 
-    return render_template('register.html')
+    # Renders the register page
+    return render_template('register.html', page_title='Register')
 
 
 # User Interface
 @app.route('/user_interface')
 def user_interface():
+    """ Returns the user interface page """
+
+    # Checks if a user is logged in
     if 'email' in session:
+        # Finds user, briefs and creative ad details created by the user
         user = mongo.db.users.find_one({'email': session['email']})
         briefs = mongo.db.briefs.find({'email': session['email']})
         creatives = mongo.db.creatives.find({'email': session['email']})
+        page_title = 'User Interface'
+
+        # Renders the user interface page
         return render_template('userInterface.html', user=user, briefs=briefs, creatives=creatives, page_title='User Interface')
 
-    return render_template('login.html', page_title='Login')
+    # Redirects the user to the login page
+    return redirect(url_for('login'))
 
 
 # Login
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    """ Logs in user """
+
     if request.method == 'POST':
+        # Setting variables
         user = mongo.db.users
         login_user = user.find_one({'email': request.form['email']})
         form = request.form
         error_list = validate_form(form, 'login')
+        page_title = 'Log in'
 
+        # Log in user after validating form
         if error_list == []:
 
             if login_user:
@@ -330,28 +359,41 @@ def login():
                 'Invalid email/password combination.'
             )
 
-            return render_template('login.html', errors=error_list)
+            # Renders the login page with error list
+            return render_template('login.html', errors=error_list, page_title='Log in')
 
         error_list.append(
             'Invalid email/password combination.'
         )
 
-        return render_template('login.html', errors=error_list)
+        # Renders the login page with error list
+        return render_template('login.html', errors=error_list, page_title='Log in')
 
-    return render_template('login.html')
+    # Renders the login page
+    return render_template('login.html', page_title='Log in')
 
 
 # Logout
 @app.route('/logout')
 def logout():
+    """ Log out user """
+
+    # Initializes page title
+    page_title = 'Home'
+
+    # Clears session
     session.clear()
 
+    # Renders the landing page
     return render_template('index.html', page_title='Home')
 
 
 # Update user
 @app.route('/update_user', methods=["POST"])
 def update_user():
+    """ Update user details """
+
+    # Updating user in session
     users = mongo.db.users
     users.update_one({'email': session['email']},
                      {'$set':
@@ -363,35 +405,61 @@ def update_user():
                           'country': request.form.get('country')
                       }
                       })
+
+    # Redirects to user interface
     return redirect(url_for('user_interface'))
 
 
 # Get Creatives
 @app.route('/get_creatives')
 def get_creatives():
+    """ Find creatives and render the creatives page """
+
+    # Initializes page title
+    page_title = 'Creatives'
+
     return render_template("creatives.html",
-                           creatives=mongo.db.creatives.find())
+                           creatives=mongo.db.creatives.find(),
+                           page_title='Creatives')
 
 
 # Contact creative
 @app.route('/contact_creative/<creative_id>', methods=['POST', 'GET'])
 def contact_creative(creative_id):
+    """ Find creative ad and render the contact creative page """
+
+    # Setting variables
+    page_title = 'Contact creative'
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
-    return render_template('contactCreative.html', creative=the_creative)
+
+    return render_template('contactCreative.html',
+                           creative=the_creative,
+                           page_title='Contact creative')
 
 
 # Create creative
 @app.route('/create_creative')
 def create_creative():
+    """ Render the create creative ad page """
+
+    # Setting variables
     user = mongo.db.users.find_one({'email': session['email']})
     skills = mongo.db.skills.find()
-    return render_template('createCreative.html', user=user, skills=skills)
+    page_title = 'Create creative ad'
+
+    return render_template('createCreative.html',
+                           user=user,
+                           skills=skills,
+                           page_title='Create creative ad')
 
 
 # Insert creative
 @app.route('/insert_creative', methods=['POST'])
 def insert_creative():
+    """ Creates a creative ad """
+
     if request.method == 'POST':
+        # Setting variables
         user = mongo.db.users.find_one({'email': session['email']})
         skills = mongo.db.skills.find()
         creatives = mongo.db.creatives
@@ -399,32 +467,54 @@ def insert_creative():
         form_data['email'] = session['email']
         form = request.form
         error_list = validate_form(form, 'creatives')
+        page_title = 'Create creative ad'
 
+        # Creates a creative ad after validating form
         if error_list == []:
             creatives.insert_one(form_data)
+
+            # Redirects the user to user interface
             return redirect(url_for('user_interface'))
 
+    # Renders the create creative ad page with errors
     return render_template('createCreative.html',
-                           user=user, skills=skills, errors=error_list)
+                           user=user,
+                           skills=skills,
+                           errors=error_list,
+                           page_title='Create creative ad')
 
 
 # Edit creative
 @app.route('/edit_user/<creative_id>')
 def edit_creative(creative_id):
+    """ Edit a creative ad """
+
+    # Setting variables
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
     skills = mongo.db.skills.find()
-    return render_template('editCreative.html', creative=the_creative, skills=skills)
+    page_title = 'Edit creative ad'
+
+    # Renders the edit creative ad page
+    return render_template('editCreative.html',
+                           creative=the_creative,
+                           skills=skills,
+                           page_title='Edit creative ad')
 
 
 # Update creative
 @app.route('/update_creative/<creative_id>', methods=['POST', 'GET'])
 def update_creative(creative_id):
+    """ Update a creative ad """
+
+    # Setting variables
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
     creatives = mongo.db.creatives
     skills = mongo.db.skills.find()
     form = request.form
     error_list = validate_form(form, 'creatives')
+    page_title = 'Edit creative ad'
 
+    # Updates a creative ad after validating form
     if error_list == []:
         creatives.update_one({'_id': ObjectId(creative_id)},
                              {'$set':
@@ -439,15 +529,23 @@ def update_creative(creative_id):
                                   'description': request.form.get('description')
                               }
                               })
+
+        # Redirects the user to user interface
         return redirect(url_for('user_interface'))
 
+    # Renders the edit creative ad page with errors
     return render_template('editCreative.html',
-                           creative=the_creative, skills=skills, errors=error_list)
+                           creative=the_creative,
+                           skills=skills,
+                           errors=error_list,
+                           page_title='Edit creative ad')
 
 
 # Delete creative
 @app.route('/delete_creative/<creative_id>')
 def delete_creative(creative_id):
+    """ Delete a creative ad """
+
     mongo.db.creatives.remove({'_id': ObjectId(creative_id)})
     return redirect(url_for('user_interface'))
 
@@ -455,29 +553,53 @@ def delete_creative(creative_id):
 # Get briefs
 @app.route('/get_briefs')
 def get_briefs():
+    """ Find briefs and render the briefs page """
+
+    # Initializes page title
+    page_title = 'Briefs'
+
     return render_template("briefs.html",
-                           briefs=mongo.db.briefs.find())
+                           briefs=mongo.db.briefs.find(),
+                           page_title='Briefs')
 
 
 # Contact employer
 @app.route('/contact_employer/<brief_id>', methods=['POST', 'GET'])
 def contact_employer(brief_id):
+    """ Find brief and render the contact employer page """
+
+    # Setting variables
+    page_title = 'Contact employer'
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
-    return render_template('contactEmployer.html', brief=the_brief)
+
+    return render_template('contactEmployer.html', 
+                            brief=the_brief,
+                            page_title = 'Contact employer')
 
 
 # Create brief
 @app.route('/create_brief')
 def create_brief():
+    """ Render the create brief page """
+
+    # Setting variables
     user = mongo.db.users.find_one({'email': session['email']})
     skills = mongo.db.skills.find()
-    return render_template('createBrief.html', user=user, skills=skills)
+    page_title = 'Create brief'
+
+    return render_template('createBrief.html', 
+                            user=user, 
+                            skills=skills,
+                            page_title = 'Create brief')
 
 
 # Insert brief
 @app.route('/insert_brief', methods=['POST', 'GET'])
 def insert_brief():
+    """ Creates a brief """
+
     if request.method == 'POST':
+        # Setting variables
         user = mongo.db.users.find_one({'email': session['email']})
         skills = mongo.db.skills.find()
         briefs = mongo.db.briefs
@@ -485,32 +607,52 @@ def insert_brief():
         form_data['email'] = session['email']
         form = request.form
         error_list = validate_form(form, 'briefs')
+        page_title = 'Create brief'
 
+        # Creates a brief after validating form
         if error_list == []:
             briefs.insert_one(form_data)
+
+            # Redirects the user to user interface
             return redirect(url_for('user_interface'))
 
+    # Renders the create brief page with errors
     return render_template('createBrief.html',
-                           user=user, skills=skills, errors=error_list)
+                           user=user, skills=skills, 
+                           errors=error_list,
+                           page_title = 'Create brief')
 
 
 # Edit brief
 @app.route('/edit_brief/<brief_id>')
 def edit_brief(brief_id):
+    """ Edit a brief """
+
+    # Setting variables
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
     skills = mongo.db.skills.find()
-    return render_template('editBrief.html', brief=the_brief, skills=skills)
+    page_title = 'Edit brief'
+
+    return render_template('editBrief.html', 
+                            brief=the_brief, 
+                            skills=skills,
+                            page_title = 'Edit brief')
 
 
 # Update brief
 @app.route('/update_brief/<brief_id>', methods=['POST', 'GET'])
 def update_brief(brief_id):
+    """ Update a creative ad """
+
+    # Setting variables
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
     briefs = mongo.db.briefs
     skills = mongo.db.skills.find()
     form = request.form
     error_list = validate_form(form, 'briefs')
+    page_title = 'Edit brief'
 
+    # Creates a brief after validating form
     if error_list == []:
         briefs.update_one({'_id': ObjectId(brief_id)},
                           {'$set':
@@ -531,15 +673,23 @@ def update_brief(brief_id):
                                'description': request.form.get('description')
                            }
                            })
+
+        # Redirects the user to user interface
         return redirect(url_for('user_interface'))
 
+    # Renders the edit brief page with errors
     return render_template('editBrief.html',
-                           brief=the_brief, skills=skills, errors=error_list)
+                           brief=the_brief, 
+                           skills=skills, 
+                           errors=error_list,
+                           page_title = 'Edit brief')
 
 
 # Delete brief
 @app.route('/delete_brief/<brief_id>')
 def delete_brief(brief_id):
+    """ Delete a creative ad """
+    
     mongo.db.briefs.remove({'_id': ObjectId(brief_id)})
     return redirect(url_for('user_interface'))
 

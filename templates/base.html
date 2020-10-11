@@ -3,21 +3,36 @@
   <!-- Head -->
 
   <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Materialize Icons -->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+
+    <!-- Materialize CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+
+    <!-- Custom CSS -->
     <link
       rel="stylesheet"
       href="{{url_for('static', filename='css/style.css')}}"
       type="text/css"
     />
+
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.png') }}"
+    />
+
+    <!-- Email JS -->
     <script
       type="text/javascript"
       src="https://cdn.emailjs.com/sdk/2.2.4/email.min.js"
@@ -27,7 +42,8 @@
         emailjs.init("user_Txaw7fq4E3HUJKaPGauXW");
       })();
     </script>
-    <title>Document</title>
+
+    <title>Creative Hub - {{page_title}}</title>
   </head>
 
   <!-- Body -->
@@ -36,6 +52,7 @@
     <!-- Header -->
 
     <header>
+      <!-- Navbar -->
       <nav>
         <div class="nav-wrapper">
           <a href="{{url_for('home')}}" class="brand-logo">Creative Hub</a>
@@ -143,21 +160,28 @@
 
     <!-- Scripts -->
 
+    <!-- jQuery -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
       integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
       crossorigin="anonymous"
     ></script>
+
+    <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Email JS -->
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
     ></script>
     <script type="text/javascript" src="../static/js/sendEmail.js"></script>
+
+    <!-- Materialize Functions -->
     <script type="text/javascript">
       $(document).ready(function () {
         emailjs.init("user_Txaw7fq4E3HUJKaPGauXW");
-    
+
         $(".collapsible").collapsible(),
           $(".sidenav").sidenav(),
           $("select").formSelect(),
