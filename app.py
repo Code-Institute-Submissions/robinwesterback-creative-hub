@@ -24,6 +24,7 @@ def validate_form(form, collection):
     """
 
     # Variable initialization
+    max_name = 50
     max_first_name = 30
     max_last_name = 30
     max_email = 40
@@ -251,6 +252,49 @@ def validate_form(form, collection):
                 .format(min_description)
             )
 
+    # Validates contactCreative form
+    elif collection == 'contactCreative':
+        if not form['name'] or len(form['name']) > max_name:
+            error_list.append(
+                'Name must not be empty or more than {} characters!'
+                .format(max_first_name)
+            )
+
+        if not form['company_name'] or len(form['company_name']) > max_company_name:
+            error_list.append(
+                'Company name must not be empty or more than {} characters!'
+                .format(max_company_name)
+            )
+
+        if not form['email'] or len(form['email']) > max_email:
+            error_list.append(
+                'E-mail must not be empty or more than {} characters!'
+                .format(max_email)
+            )
+
+        if not form['phone'] or len(form['phone']) > max_phone:
+            error_list.append(
+                'Phone cannot contain more than {} characters!'
+                .format(max_phone)
+            )
+
+        if not form['description']:
+            error_list.append(
+                'Description must not be empty!'
+            )
+
+        if len(form['description']) > max_description:
+            error_list.append(
+                'Description must not be more than {} characters!'
+                .format(max_description)
+            )
+
+        if len(form['description']) < min_description:
+            error_list.append(
+                'Description must not be less than {} characters!'
+                .format(min_description)
+            )
+
     # returns errors on an empty list
     return error_list
 
@@ -376,6 +420,16 @@ def get_creatives():
 @app.route('/contact_creative/<creative_id>', methods=['POST', 'GET'])
 def contact_creative(creative_id):
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
+
+    if request.method == 'POST':
+        form = request.form
+        error_list = validate_form(form, 'contactCreative')
+
+        if error_list == []:
+            return render_template('contactCreative.html', creative=the_creative)
+
+        return render_template('contactCreative.html', creative=the_creative, errors=error_list)
+
     return render_template('contactCreative.html', creative=the_creative)
 
 
@@ -398,7 +452,7 @@ def insert_creative():
         form_data['email'] = session['email']
         form = request.form
         error_list = validate_form(form, 'creatives')
-        
+
         if error_list == []:
             creatives.insert_one(form_data)
             return redirect(url_for('user_interface'))
@@ -423,21 +477,21 @@ def update_creative(creative_id):
     skills = mongo.db.skills.find()
     form = request.form
     error_list = validate_form(form, 'creatives')
-    
+
     if error_list == []:
         creatives.update_one({'_id': ObjectId(creative_id)},
-                            {'$set':
-                            {
-                                'first_name': request.form.get('first_name'),
-                                'last_name': request.form.get('last_name'),
-                                'email': session['email'],
-                                'city': request.form.get('city'),
-                                'country': request.form.get('country'),
-                                'skills': request.form.get('skills'),
-                                'hourly_rate': request.form.get('hourly_rate'),
-                                'description': request.form.get('description')
-                            }
-                            })
+                             {'$set':
+                              {
+                                  'first_name': request.form.get('first_name'),
+                                  'last_name': request.form.get('last_name'),
+                                  'email': session['email'],
+                                  'city': request.form.get('city'),
+                                  'country': request.form.get('country'),
+                                  'skills': request.form.get('skills'),
+                                  'hourly_rate': request.form.get('hourly_rate'),
+                                  'description': request.form.get('description')
+                              }
+                              })
         return redirect(url_for('user_interface'))
 
     return render_template('editCreative.html',
@@ -462,6 +516,17 @@ def get_briefs():
 @app.route('/contact_employer/<brief_id>')
 def contact_employer(brief_id):
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
+
+    if request.method == 'POST':
+        form = request.form
+        error_list = validate_form(form, 'contactEmployer')
+
+        if error_list == []:
+            success = 'E-mail successfully sent'
+            return render_template('contactEmployer.html', brief=the_brief, success=success)
+
+        return render_template('contactEmployer.html', brief=the_brief, errors=error_list)
+
     return render_template('contactEmployer.html', brief=the_brief)
 
 
@@ -512,24 +577,24 @@ def update_brief(brief_id):
 
     if error_list == []:
         briefs.update_one({'_id': ObjectId(brief_id)},
-                        {'$set':
-                            {
-                                'email': session['email'],
-                                'email': session['email'],
-                                'first_name': request.form.get('first_name'),
-                                'last_name': request.form.get('last_name'),
-                                'city': request.form.get('city'),
-                                'country': request.form.get('country'),
-                                'company_name': request.form.get('company_name'),
-                                'title': request.form.get('title'),
-                                'hours': request.form.get('hours'),
-                                'duration': request.form.get('duration'),
-                                'required_skills': request.form.get('required_skills'),
-                                'budget': request.form.get('budget'),
-                                'project_start': request.form.get('project_start'),
-                                'description': request.form.get('description')
-                            }
-                        })
+                          {'$set':
+                           {
+                               'email': session['email'],
+                               'email': session['email'],
+                               'first_name': request.form.get('first_name'),
+                               'last_name': request.form.get('last_name'),
+                               'city': request.form.get('city'),
+                               'country': request.form.get('country'),
+                               'company_name': request.form.get('company_name'),
+                               'title': request.form.get('title'),
+                               'hours': request.form.get('hours'),
+                               'duration': request.form.get('duration'),
+                               'required_skills': request.form.get('required_skills'),
+                               'budget': request.form.get('budget'),
+                               'project_start': request.form.get('project_start'),
+                               'description': request.form.get('description')
+                           }
+                           })
         return redirect(url_for('user_interface'))
 
     return render_template('editBrief.html',

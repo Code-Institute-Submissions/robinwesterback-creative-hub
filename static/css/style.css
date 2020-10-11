@@ -39,6 +39,14 @@ footer i {
   text-transform: capitalize;
 }
 
+.input-success-message {
+    color: #26a69a;
+}
+
+.input-error-message {
+    color: rgba(238,110,115, 0.8);
+}
+
 /* ---------------------------- error section */
 
 .error-container {
