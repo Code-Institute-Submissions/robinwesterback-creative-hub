@@ -24,7 +24,6 @@ def validate_form(form, collection):
     """
 
     # Variable initialization
-    max_name = 50
     max_first_name = 30
     max_last_name = 30
     max_email = 40
@@ -287,8 +286,7 @@ def register():
             if existing_user is None:
                 hashpass = bcrypt.hashpw(
                     request.form['password'].encode('utf-8'), bcrypt.gensalt())
-                users.insert({'email': request.form['email'],
-                              'first_name': request.form.get('first_name'),
+                users.insert({'first_name': request.form.get('first_name'),
                               'last_name': request.form.get('last_name'),
                               'email': request.form.get('email'),
                               'phone': request.form.get('phone'),
@@ -305,10 +303,14 @@ def register():
             )
 
             # Renders the register page with error list
-            return render_template('register.html', errors=error_list, page_title='Register')
+            return render_template('register.html',
+                                   errors=error_list,
+                                   page_title='Register')
 
         # Renders the register page with error list
-        return render_template('register.html', errors=error_list, page_title='Register')
+        return render_template('register.html',
+                               errors=error_list,
+                               page_title='Register')
 
     # Renders the register page
     return render_template('register.html', page_title='Register')
@@ -328,7 +330,11 @@ def user_interface():
         page_title = 'User Interface'
 
         # Renders the user interface page
-        return render_template('userInterface.html', user=user, briefs=briefs, creatives=creatives, page_title='User Interface')
+        return render_template('userInterface.html',
+                               user=user,
+                               briefs=briefs,
+                               creatives=creatives,
+                               page_title='User Interface')
 
     # Redirects the user to the login page
     return redirect(url_for('login'))
@@ -351,7 +357,8 @@ def login():
         if error_list == []:
 
             if login_user:
-                if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
+                if bcrypt.hashpw(request.form['password'].encode('utf-8'),
+                                 login_user['password']) == login_user['password']:
                     session['email'] = request.form['email']
                     return redirect(url_for('user_interface'))
 
@@ -360,14 +367,18 @@ def login():
             )
 
             # Renders the login page with error list
-            return render_template('login.html', errors=error_list, page_title='Log in')
+            return render_template('login.html',
+                                   errors=error_list,
+                                   page_title='Log in')
 
         error_list.append(
             'Invalid email/password combination.'
         )
 
         # Renders the login page with error list
-        return render_template('login.html', errors=error_list, page_title='Log in')
+        return render_template('login.html',
+                               errors=error_list,
+                               page_title='Log in')
 
     # Renders the login page
     return render_template('login.html', page_title='Log in')
@@ -572,9 +583,9 @@ def contact_employer(brief_id):
     page_title = 'Contact employer'
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
 
-    return render_template('contactEmployer.html', 
-                            brief=the_brief,
-                            page_title = 'Contact employer')
+    return render_template('contactEmployer.html',
+                           brief=the_brief,
+                           page_title='Contact employer')
 
 
 # Create brief
@@ -587,10 +598,10 @@ def create_brief():
     skills = mongo.db.skills.find()
     page_title = 'Create brief'
 
-    return render_template('createBrief.html', 
-                            user=user, 
-                            skills=skills,
-                            page_title = 'Create brief')
+    return render_template('createBrief.html',
+                           user=user,
+                           skills=skills,
+                           page_title='Create brief')
 
 
 # Insert brief
@@ -618,9 +629,9 @@ def insert_brief():
 
     # Renders the create brief page with errors
     return render_template('createBrief.html',
-                           user=user, skills=skills, 
+                           user=user, skills=skills,
                            errors=error_list,
-                           page_title = 'Create brief')
+                           page_title='Create brief')
 
 
 # Edit brief
@@ -633,10 +644,10 @@ def edit_brief(brief_id):
     skills = mongo.db.skills.find()
     page_title = 'Edit brief'
 
-    return render_template('editBrief.html', 
-                            brief=the_brief, 
-                            skills=skills,
-                            page_title = 'Edit brief')
+    return render_template('editBrief.html',
+                           brief=the_brief,
+                           skills=skills,
+                           page_title='Edit brief')
 
 
 # Update brief
@@ -679,17 +690,17 @@ def update_brief(brief_id):
 
     # Renders the edit brief page with errors
     return render_template('editBrief.html',
-                           brief=the_brief, 
-                           skills=skills, 
+                           brief=the_brief,
+                           skills=skills,
                            errors=error_list,
-                           page_title = 'Edit brief')
+                           page_title='Edit brief')
 
 
 # Delete brief
 @app.route('/delete_brief/<brief_id>')
 def delete_brief(brief_id):
     """ Delete a creative ad """
-    
+
     mongo.db.briefs.remove({'_id': ObjectId(brief_id)})
     return redirect(url_for('user_interface'))
 
