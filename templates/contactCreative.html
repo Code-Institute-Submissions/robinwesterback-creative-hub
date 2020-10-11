@@ -1,17 +1,4 @@
 {% extends 'base.html' %} {% block content %}
-<!-- Errors -->
-
-{% if errors %}
-
-<div class="error-container">
-  <ul>
-    {% for error in errors %}
-    <li>{{error}}</li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
-
 <!-- Creative Details -->
 
 <h4>Creative Details</h4>
@@ -38,9 +25,11 @@
   </div>
 </div>
 
+<!-- Contact Form -->
+
 <h4>Contact form</h4>
 <div class="row">
-  <form action="{{ url_for('contact_creative', creative_id=creative._id) }}" onsubmit="return sendMail(this);" methods="POST" class="col s12">
+  <form onsubmit="return sendMail(this);" class="col s12">
     <div class="row">
       <!-- Name -->
 
@@ -57,21 +46,6 @@
         <label for="name">Name</label>
       </div>
 
-      <!-- Company -->
-
-      <div class="input-field col s12">
-        <i class="material-icons prefix">business</i>
-        <input
-          id="company_name"
-          name="company_name"
-          type="text"
-          class="validate"
-          maxlength="30"
-          required
-        />
-        <label for="company_name">Company</label>
-      </div>
-
       <!-- E-mail -->
 
       <div class="input-field col s12">
@@ -81,6 +55,7 @@
           name="email"
           type="email"
           class="validate"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           maxlength="30"
           required
         />

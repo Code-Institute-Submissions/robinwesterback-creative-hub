@@ -252,49 +252,6 @@ def validate_form(form, collection):
                 .format(min_description)
             )
 
-    # Validates contactCreative form
-    elif collection == 'contactCreative':
-        if not form['name'] or len(form['name']) > max_name:
-            error_list.append(
-                'Name must not be empty or more than {} characters!'
-                .format(max_first_name)
-            )
-
-        if not form['company_name'] or len(form['company_name']) > max_company_name:
-            error_list.append(
-                'Company name must not be empty or more than {} characters!'
-                .format(max_company_name)
-            )
-
-        if not form['email'] or len(form['email']) > max_email:
-            error_list.append(
-                'E-mail must not be empty or more than {} characters!'
-                .format(max_email)
-            )
-
-        if not form['phone'] or len(form['phone']) > max_phone:
-            error_list.append(
-                'Phone cannot contain more than {} characters!'
-                .format(max_phone)
-            )
-
-        if not form['description']:
-            error_list.append(
-                'Description must not be empty!'
-            )
-
-        if len(form['description']) > max_description:
-            error_list.append(
-                'Description must not be more than {} characters!'
-                .format(max_description)
-            )
-
-        if len(form['description']) < min_description:
-            error_list.append(
-                'Description must not be less than {} characters!'
-                .format(min_description)
-            )
-
     # returns errors on an empty list
     return error_list
 
@@ -420,16 +377,6 @@ def get_creatives():
 @app.route('/contact_creative/<creative_id>', methods=['POST', 'GET'])
 def contact_creative(creative_id):
     the_creative = mongo.db.creatives.find_one({"_id": ObjectId(creative_id)})
-
-    if request.method == 'POST':
-        form = request.form
-        error_list = validate_form(form, 'contactCreative')
-
-        if error_list == []:
-            return render_template('contactCreative.html', creative=the_creative)
-
-        return render_template('contactCreative.html', creative=the_creative, errors=error_list)
-
     return render_template('contactCreative.html', creative=the_creative)
 
 
@@ -513,20 +460,9 @@ def get_briefs():
 
 
 # Contact employer
-@app.route('/contact_employer/<brief_id>')
+@app.route('/contact_employer/<brief_id>', methods=['POST', 'GET'])
 def contact_employer(brief_id):
     the_brief = mongo.db.briefs.find_one({"_id": ObjectId(brief_id)})
-
-    if request.method == 'POST':
-        form = request.form
-        error_list = validate_form(form, 'contactEmployer')
-
-        if error_list == []:
-            success = 'E-mail successfully sent'
-            return render_template('contactEmployer.html', brief=the_brief, success=success)
-
-        return render_template('contactEmployer.html', brief=the_brief, errors=error_list)
-
     return render_template('contactEmployer.html', brief=the_brief)
 
 

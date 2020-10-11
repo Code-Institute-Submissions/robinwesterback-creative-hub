@@ -4,7 +4,6 @@ function sendMail(contactForm) {
   emailjs
     .send("gmail", "Creative Hub", {
       name: contactForm.name.value,
-      company_name: contactForm.company_name.value,
       email: contactForm.email.value,
       phone: contactForm.phone.value,
       description: contactForm.description.value,
@@ -12,12 +11,14 @@ function sendMail(contactForm) {
     .then(
       function (response) {
         console.log("SUCCESS", response);
-        document.getElementById("email-message").innerHTML = "E-mail successfully sent!";
+        document.getElementById("email-message").innerHTML =
+          "E-mail successfully sent!";
       },
       function (error) {
         console.log("FAILED", error);
-        document.getElementById("email-message").innerHTML = "E-mail failed to send!";
-        emailMessage.className(input-error-message);
+        document.getElementById("email-message").innerHTML =
+          "E-mail failed to send!";
+        emailMessage.classList.add("input-error-message");
       }
     );
   return false; // To block from loading a new page

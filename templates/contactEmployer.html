@@ -1,4 +1,6 @@
 {% extends 'base.html' %} {% block content %}
+<!-- Brief Details -->
+
 <h4>Brief Details</h4>
 <div class="row">
   <div class="col s6">
@@ -23,15 +25,24 @@
   </div>
 </div>
 
+<!-- Contact Form -->
+
 <h4>Contact form</h4>
 <div class="row">
-  <form action="" method="POST" class="col s12">
+  <form onsubmit="return sendMail(this);" class="col s12">
     <div class="row">
       <!-- Name -->
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="name" name="name" type="text" class="validate" />
+        <input
+          id="name"
+          name="name"
+          type="text"
+          class="validate"
+          maxlength="50"
+          required
+        />
         <label for="name">Name</label>
       </div>
 
@@ -39,7 +50,15 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">email</i>
-        <input id="email" name="email" type="email" class="validate" />
+        <input
+          id="email"
+          name="email"
+          type="email"
+          class="validate"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          maxlength="30"
+          required
+        />
         <label for="email">E-mail</label>
       </div>
 
@@ -47,7 +66,14 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">phone</i>
-        <input id="phone" name="phone" type="tel" class="validate" />
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          class="validate"
+          maxlength="30"
+          required
+        />
         <label for="phone">Telephone</label>
       </div>
 
@@ -59,6 +85,9 @@
           id="description"
           name="description"
           class="materialize-textarea"
+          minlength="30"
+          maxlength="150"
+          required
         ></textarea>
         <label for="description">Description</label>
       </div>
@@ -71,6 +100,7 @@
         Send inquiry
         <i class="material-icons right">send</i>
       </button>
+      <div id="email-message" class="input-success-message"></div>
     </div>
   </form>
 </div>
