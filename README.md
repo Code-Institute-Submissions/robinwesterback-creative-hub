@@ -382,12 +382,23 @@ The minor flaws that exist don’t ruin the user experience but should be correc
 
 ## Deployment
 
-The source code of the website is deployed to Github and the web application is hosted by Heroku. 
-They both update automatically on a new commit and push to the master branch of the Github repository. 
+This project is stored in a GitHub repository and hosted on Heroku.
 
-### How to run this project locally
+### How to deploy to Github
 
-1. Use this [link](https://github.com/robinwesterback/creative-hub/ "Creative Hub Repository") to get to the projects repository.
+1. Click [here](https://github.com/robinwesterback/creative-hub/ "Creative Hub Repository") to get to the projects repository.
+
+2. Click on 'Settings' to the far right in navigation menu below your repository name.
+
+3. Scroll down to 'GitHub Pages' and select 'master branch' as the source.
+
+4. Click save.
+
+5. The link to the site hosted on GitHub Pages should appear at the top of the section.
+
+### How to clone this repository in order to run the code locally on your machine
+
+1. Click [here](https://github.com/robinwesterback/creative-hub/ "Creative Hub Repository") to get to the projects repository.
 
 2. Click "Clone or Download".
 
@@ -402,6 +413,40 @@ They both update automatically on a new commit and push to the master branch of 
    `git clone https://github.com/USERNAME/REPOSITORY`
 
 7. When you press enter your local clone will be ready.
+
+### How to clone this repository in order to run the code locally on your machine
+
+1. Created a new application using the Heroku dashboard.
+
+2. Go to settings tab, click on 'reveal config vars' and add config vars such as IP (0.0.0.0), PORT (5000), MongoDB Name, MongoDB URI (URL with DB name and password).
+
+3. Install Heroku via the console using 'npm install -g Heroku'.
+
+4. Log into Heroku via the console using 'heroku login' and follow the on screen instructions to log in.
+
+5. Create a requirements.txt via the console using 'pip3 freeze > requirements.txt'.
+
+6. Create a Procfile via the console using 'echo web: python app.py > Procfile'.
+
+7. Connect GitHub to Heroku via the console using 'heroku git:remote a creative-hub'
+
+8. Commit all files in your project via the console using 'git add .' and 'git commit -m "Message"'.
+
+9. Deploy your project to Heroku via the consol using 'git push heroku master'.
+
+### Running the application locally using Gitpod
+
+1. Clone the repository as outlined above and upload it to GitPod.
+
+2. Install the necessary libraries specified in the requirements.txt.
+
+3. Set your environment variables by creating and adding them into a env.py file.
+
+4. Create a .gitignore file in the root directory and add the env.py file to avoid it being pushed to GitHub.
+
+5. Import the env.py file into the app.py file.
+
+6. Run the application.
 
 ## Credits
 
