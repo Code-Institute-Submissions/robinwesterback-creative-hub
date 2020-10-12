@@ -1,3 +1,5 @@
+/* ----------------------------------- Special paddings/margins/text */
+
 body {
   font-size: 1.5rem;
   line-height: 1.8;
@@ -14,29 +16,28 @@ h1 {
   font-size: 3.5rem;
 }
 
-/* h1::after {
-  content: "";
-  display: block;
-  margin-top: 1.2rem;
-  height: 2px;
-  width: 70px;
-  background: #333333;
-} */
+label {
+    font-size: 1.4rem;
+}
 
 footer i {
   padding-top: 5px;
 }
 
-.rotate {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
+/* ----------------------------------- Classes */
 
 .capitalize {
   text-transform: capitalize;
+}
+
+.collapsible-body .row {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-field .prefix ~ input {
+    font-size: 1.2rem;
 }
 
 .input-success-message {
@@ -47,7 +48,35 @@ footer i {
     color: rgba(238,110,115, 0.8);
 }
 
-/* ---------------------------- error section */
+.collapsible .material-icons {
+    display: flex;
+    align-self: center;
+    max-width: 1.5rem;
+}
+
+.page-footer {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+/* ----------------------------------- Header */
+
+.sidenav li>a {
+    font-size: 1.7rem;
+    padding: 2rem 2.5rem;
+}
+
+nav .sidenav-trigger i {
+    font-size: 2.5rem;
+}
+
+
+/* ----------------------------------- Error section */
 
 .error-container {
   padding: 1rem;
@@ -57,3 +86,15 @@ footer i {
     background-clip: padding-box;
     margin-top: 1rem;
 }
+
+/* ----------------------------------- Media Queries */
+
+/* ----------------------------------- Max-width */
+
+/* ----------------------------------- Max-width 340px */
+
+@media (max-width: 768px) {
+  p {
+    text-align: justify;
+  }
+
