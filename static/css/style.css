@@ -17,7 +17,7 @@ h1 {
 }
 
 label {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
 footer i {
@@ -31,83 +31,102 @@ footer i {
 }
 
 .collapsible-body .row {
-    margin-bottom: 0;
-    display: flex;
-    align-items: center;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
 .contact {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 .contact .row {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .contact .row .s2 {
-    display: flex;
+  display: flex;
 }
 
 .input-field .prefix ~ input {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .input-success-message {
-    color: #26a69a;
+  color: #26a69a;
 }
 
 .input-error-message {
-    color: rgba(238,110,115, 0.8);
+  color: rgba(238, 110, 115, 0.8);
 }
 
 .collapsible .material-icons {
-    display: flex;
-    align-self: center;
-    max-width: 1.5rem;
+  display: flex;
+  align-self: center;
+  max-width: 1.5rem;
 }
 
 .page-footer {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 /* ----------------------------------- Header */
 
-.sidenav li>a {
-    font-size: 1.7rem;
-    padding: 2rem 2.5rem;
+.sidenav li > a {
+  font-size: 1.7rem;
+  padding: 2rem 2.5rem;
 }
 
 nav .sidenav-trigger i {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
+nav .brand-logo {
+  padding: 0 1rem;
+}
 
 /* ----------------------------------- Error section */
 
 .error-container {
   padding: 1rem;
-    box-sizing: border-box;
-    border: 1px solid rgba(238,110,115, 0.8);
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    margin-top: 1rem;
+  box-sizing: border-box;
+  border: 1px solid rgba(238, 110, 115, 0.8);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  margin-top: 1rem;
 }
 
 /* ----------------------------------- Media Queries */
 
 /* ----------------------------------- Max-width */
 
-/* ----------------------------------- Max-width 340px */
+/* ----------------------------------- Max-width 768px */
 
 @media (max-width: 768px) {
   p {
     text-align: justify;
   }
+}
 
+/* ----------------------------------- Min-width */
+
+/* ----------------------------------- Min-width 933px */
+
+@media only screen and (min-width: 993px) and (max-width: 1100px) {
+  .row .col.offset-l2 {
+    margin-left: 9.666667%;
+  }
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1100px) {
+  .row .col.l4 {
+    width: 40.3333333333%;
+  }
+}
