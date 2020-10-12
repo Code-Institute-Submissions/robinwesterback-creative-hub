@@ -2,7 +2,9 @@
 <!-- Welcome -->
 
 <div class="section row center">
-  <h1 class="capitalize">{{user.first_name}}, welcome to your user interface</h1>
+  <h1 class="capitalize">
+    {{user.first_name}}, welcome to your user interface
+  </h1>
 </div>
 
 <div class="divider"></div>
@@ -121,11 +123,7 @@
 
 <h3>Update User Details</h3>
 <div class="row">
-  <form
-    action="{{ url_for('update_user') }}"
-    method="POST"
-    class="col s12"
-  >
+  <form action="{{ url_for('update_user') }}" method="POST" class="col s12">
     <div class="row">
       <!-- First name -->
 
