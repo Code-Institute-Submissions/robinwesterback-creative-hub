@@ -36,6 +36,19 @@ footer i {
     align-items: center;
 }
 
+.contact {
+    padding-top: 1rem;
+}
+
+.contact .row {
+    display: flex;
+    align-items: center;
+}
+
+.contact .row .s2 {
+    display: flex;
+}
+
 .input-field .prefix ~ input {
     font-size: 1.2rem;
 }

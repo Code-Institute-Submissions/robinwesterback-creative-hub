@@ -1,29 +1,52 @@
 {% extends 'base.html' %} {% block content %}
 <!-- Creative Details -->
 
-<h4>Creative Details</h4>
-<div class="row">
-  <div class="col s6">
-    <i class="material-icons prefix">account_circle</i>
-    {{creative.first_name}} {{creative.last_name}}
+<h3>Creative Details</h3>
+
+<div class="contact container">
+  <div class="row">
+    <div class="col s2">
+      <i class="material-icons prefix">account_circle</i>
+    </div>
+    <div class="col s10">
+      <span>{{creative.first_name}} {{creative.last_name}}</span>
+    </div>
   </div>
-  <div class="col s6">
-    <i class="material-icons prefix">location_on</i>
-    {{creative.city}} {{creative.country}}
+  <div class="row">
+    <div class="col s2">
+      <i class="material-icons prefix">location_on</i>
+    </div>
+    <div class="col s10">
+      {{creative.city}} {{creative.country}}
+    </div>
   </div>
-  <div class="col s6">
-    <i class="material-icons prefix">star</i>
-    {{creative.skills}}
+  <div class="row">
+    <div class="col s2">
+      <i class="material-icons prefix">star</i>
+    </div>
+    <div class="col s10">
+      {{creative.skills}}
+    </div>
   </div>
-  <div class="col s6">
-    <i class="material-icons prefix">attach_money</i>
-    {{creative.hourly_rate}}
+  <div class="row">
+    <div class="col s2">
+      <i class="material-icons prefix">attach_money</i>
+    </div>
+    <div class="col s10">
+      {{creative.hourly_rate}}
+    </div>
   </div>
-  <div class="col s12">
-    <i class="material-icons prefix">description</i>
-    {{creative.description}}
+  <div class="row">
+    <div class="col s2">
+      <i class="material-icons prefix">description</i>
+    </div>
+    <div class="col s10">
+      {{creative.description}}
+    </div>
   </div>
 </div>
+
+<div class="divider"></div>
 
 <!-- Contact Form -->
 
