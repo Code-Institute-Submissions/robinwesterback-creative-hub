@@ -144,7 +144,8 @@ def validate_form(form, collection):
                 .format(max_country)
             )
 
-        if not form['company_name'] or len(form['company_name']) > max_company_name:
+        if not form['company_name'] or len(form['company_name']) > \
+                max_company_name:
             error_list.append(
                 'Company name must not be empty or more than {} characters!'
                 .format(max_company_name)
@@ -358,7 +359,8 @@ def login():
 
             if login_user:
                 if bcrypt.hashpw(request.form['password'].encode('utf-8'),
-                                 login_user['password']) == login_user['password']:
+                                 login_user
+                                 ['password']) == login_user['password']:
                     session['email'] = request.form['email']
                     return redirect(url_for('user_interface'))
 
@@ -529,17 +531,17 @@ def update_creative(creative_id):
     if error_list == []:
         creatives.update_one({'_id': ObjectId(creative_id)},
                              {'$set':
-                              {
-                                  'first_name': request.form.get('first_name'),
-                                  'last_name': request.form.get('last_name'),
-                                  'email': session['email'],
-                                  'city': request.form.get('city'),
-                                  'country': request.form.get('country'),
-                                  'skills': request.form.get('skills'),
-                                  'hourly_rate': request.form.get('hourly_rate'),
-                                  'description': request.form.get('description')
-                              }
-                              })
+                             {
+                                'first_name': request.form.get('first_name'),
+                                'last_name': request.form.get('last_name'),
+                                'email': session['email'],
+                                'city': request.form.get('city'),
+                                'country': request.form.get('country'),
+                                'skills': request.form.get('skills'),
+                                'hourly_rate': request.form.get('hourly_rate'),
+                                'description': request.form.get('description')
+                             }
+                             })
 
         # Redirects the user to user interface
         return redirect(url_for('user_interface'))
@@ -668,20 +670,21 @@ def update_brief(brief_id):
         briefs.update_one({'_id': ObjectId(brief_id)},
                           {'$set':
                            {
-                               'email': session['email'],
-                               'email': session['email'],
-                               'first_name': request.form.get('first_name'),
-                               'last_name': request.form.get('last_name'),
-                               'city': request.form.get('city'),
-                               'country': request.form.get('country'),
-                               'company_name': request.form.get('company_name'),
-                               'title': request.form.get('title'),
-                               'hours': request.form.get('hours'),
-                               'duration': request.form.get('duration'),
-                               'required_skills': request.form.get('required_skills'),
-                               'budget': request.form.get('budget'),
-                               'project_start': request.form.get('project_start'),
-                               'description': request.form.get('description')
+                            'email': session['email'],
+                            'email': session['email'],
+                            'first_name': request.form.get('first_name'),
+                            'last_name': request.form.get('last_name'),
+                            'city': request.form.get('city'),
+                            'country': request.form.get('country'),
+                            'company_name': request.form.get('company_name'),
+                            'title': request.form.get('title'),
+                            'hours': request.form.get('hours'),
+                            'duration': request.form.get('duration'),
+                            'required_skills': request.form.get
+                            ('required_skills'),
+                            'budget': request.form.get('budget'),
+                            'project_start': request.form.get('project_start'),
+                            'description': request.form.get('description')
                            }
                            })
 
